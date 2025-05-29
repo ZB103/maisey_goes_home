@@ -6,8 +6,7 @@ public class DialogueInitializer : MonoBehaviour
 {
     public DialogueNode startNode;
 
-    // Start is called before the first frame update
-    void Start()
+    public void InitializeDialogue()
     {
         //Start dialogue manager
         DialogueManager dialogueManager = FindObjectOfType<DialogueManager>();
@@ -17,6 +16,7 @@ public class DialogueInitializer : MonoBehaviour
     //Create dialogue nodes
     private void Awake()
     {
+        
         DialogueNode n1 = new DialogueNode
         {
             dialogueText = "Hello!",
@@ -31,7 +31,7 @@ public class DialogueInitializer : MonoBehaviour
 
         DialogueNode n3 = new DialogueNode
         {
-            dialogueText = "Ah- don't you feel that's a bit uncalled for?",
+            dialogueText = "Ah- don't you feel that's a bit unnecessary?",
             options = new List<DialogueResponse>()
         };
 
