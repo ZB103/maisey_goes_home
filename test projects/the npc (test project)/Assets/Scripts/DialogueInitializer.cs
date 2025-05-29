@@ -19,7 +19,7 @@ public class DialogueInitializer : MonoBehaviour
         
         DialogueNode n1 = new DialogueNode
         {
-            dialogueText = "Hello!",
+            dialogueText = "Hello, welcome to my shop!",
             options = new List<DialogueResponse>()
         };
 
@@ -31,7 +31,7 @@ public class DialogueInitializer : MonoBehaviour
 
         DialogueNode n3 = new DialogueNode
         {
-            dialogueText = "Ah- don't you feel that's a bit unnecessary?",
+            dialogueText = "Ah- I feel like that's a bit unnecessary...",
             options = new List<DialogueResponse>()
         };
 

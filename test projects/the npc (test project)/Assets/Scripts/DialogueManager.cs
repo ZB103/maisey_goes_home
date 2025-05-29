@@ -11,10 +11,12 @@ public class DialogueManager : MonoBehaviour
     private TriggerDialogue trigger;
     public TextMeshProUGUI dialogueText;
     public float textSpeed;
+    public bool typingInProgress;
 
     public Button responseButtonPrefab;
     public Transform buttonContainer;
     private DialogueNode currentNode;
+    private Coroutine typingCoroutine;
 
     void Start()
     {
@@ -26,8 +28,11 @@ public class DialogueManager : MonoBehaviour
         //If a button is pressed, fastforward text scrolling
         if (Input.anyKeyDown)
         {
-            StopAllCoroutines();
+            if(typingCoroutine != null)
+                StopCoroutine(typingCoroutine);
             dialogueText.text = currentNode.dialogueText;
+            EnableButtons();
+            typingInProgress = false;
         }
     }
 
@@ -39,24 +44,17 @@ public class DialogueManager : MonoBehaviour
 
     private void DisplayDialogue()
     {
-        StartCoroutine(TypeLine(currentNode.dialogueText));
+        typingCoroutine = StartCoroutine(TypeLine(currentNode.dialogueText));
         ClearButtons();
 
-        //check if reached end of dialogue branch
-        if (currentNode.options.ToArray().Length == 0)
+        //display response options using button prefab
+        foreach (var response in currentNode.options)
         {
-            trigger.onLeaf = true;
-        }
-        else
-        {
-            trigger.onLeaf = false;
-            //display response options using button prefab
-            foreach (var response in currentNode.options)
-            {
-                Button button = Instantiate(responseButtonPrefab, buttonContainer);
-                button.GetComponentInChildren<TextMeshProUGUI>().text = response.responseText;
-                button.onClick.AddListener(() => OnResponseSelected(response));
-            }
+            Button button = Instantiate(responseButtonPrefab, buttonContainer);
+            button.GetComponentInChildren<TextMeshProUGUI>().text = response.responseText;
+            button.onClick.AddListener(() => OnResponseSelected(response));
+            button.interactable = false;
+            button.enabled = false;
         }
     }
 
@@ -74,16 +72,42 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    private void EnableButtons()
+    {
+        //check if reached end of dialogue branch
+        if (currentNode.options.ToArray().Length == 0)
+        {
+            trigger.onLeaf = true;
+        }
+        
+        
+            //enable buttons
+            foreach (Transform child in buttonContainer)
+            {
+                child.GetComponent<Button>().interactable = true;
+                child.GetComponent<Button>().enabled = true;
+            }
+        
+    }
+
+    //type current line of dialogue one letter at a time unless fastforwarded
     IEnumerator TypeLine(String line)
     {
+        typingInProgress = true;
+        
         //reset text box
         dialogueText.text = string.Empty;
 
-        //type 1 letter at a time
+        //type one letter at a time
         foreach (char c in line.ToCharArray())
         {
             dialogueText.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
+        typingInProgress = false;
+
+        //enable buttons
+        EnableButtons();
+        yield break;
     }
 }

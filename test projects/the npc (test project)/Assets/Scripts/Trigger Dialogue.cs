@@ -7,19 +7,21 @@ public class TriggerDialogue : MonoBehaviour
     private bool dialogueOpen;
     public GameObject dialogueBox;
     public DialogueInitializer initializer;
-    public bool onLeaf;    //have we reached a leaf node?
+    public bool onLeaf;     //have we reached a leaf node?
+    private bool dialogueFinished;  //have we finished spelling the last node?
 
     void Awake()
     {
         dialogueOpen = false;
         onLeaf = false;
+        dialogueFinished = false;
         dialogueBox = GameObject.Find("Panel");
         dialogueBox.SetActive(false);
         initializer = FindObjectOfType<DialogueInitializer>();
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         //if dialogue box is closed and e is pressed, open dialogue
         if(!dialogueOpen && (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.E)))
@@ -29,13 +31,23 @@ public class TriggerDialogue : MonoBehaviour
         //if conversation is over and e is pressed, close dialogue
         else if (dialogueOpen && onLeaf && (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Mouse0)))
         {
-            toggleDialogue();
+            //if catch ensures last line of dialogue is spoken thru before ending
+            if (!dialogueFinished)
+            {
+                dialogueFinished = true;
+            }
+            else
+            {
+                toggleDialogue();
+            }
+
         }
     }
 
     public void toggleDialogue()
     {
         onLeaf = false;
+        dialogueFinished = false;
         //turn off
         if (dialogueOpen)
         {

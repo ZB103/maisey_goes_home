@@ -172,7 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
+  m_ScaleFactor: 2
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
@@ -627,6 +627,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueText: {fileID: 6060348099933542745}
   textSpeed: 0.1
+  typingInProgress: 0
   responseButtonPrefab: {fileID: 250653567}
   buttonContainer: {fileID: 348369801}
 --- !u!114 &1030306511
@@ -899,10 +900,10 @@ RectTransform:
   - {fileID: 348369801}
   m_Father: {fileID: 65584082}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1.4144287, y: -394.6258}
-  m_SizeDelta: {x: -407.3555, y: -828.8554}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -1.4144287, y: -404.1}
+  m_SizeDelta: {x: 1535, y: 230}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1016933950252793607
 CanvasRenderer:
@@ -934,10 +935,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 956310890130055590}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -642.89, y: 162.13867}
-  m_SizeDelta: {x: -1285.8, y: -174.1594}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -642.89, y: 166.4}
+  m_SizeDelta: {x: 250, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1315003269734867519
 CanvasRenderer:
@@ -1005,7 +1006,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: (Press E to open and close dialogue.)
+  m_text: (LMouse to open and close dialogue.)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1245,7 +1246,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: (Press E to open and close dialogue.)
+  m_text: (LMouse to open and close dialogue.)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1466,7 +1467,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -642.89, y: 162.14}
+  m_AnchoredPosition: {x: -642.89, y: 164.4}
   m_SizeDelta: {x: 226.85, y: 76.986}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8267255720961067553
