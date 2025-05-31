@@ -5,11 +5,15 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     public int playerHealth;
+    public HealthBar healthBar;
+    public SpriteRenderer sr;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         playerHealth = 100;
+        sr = gameObject.GetComponent<SpriteRenderer>();
+        sr.color = Color.white;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -30,7 +34,8 @@ public class Health : MonoBehaviour
             playerHealth += 10;
         else if (playerHealth < 100)
             playerHealth = 100;
-        print("healed player : " + playerHealth);
+
+        UpdateUI();
     }
 
     //remove from the player's health
@@ -40,6 +45,15 @@ public class Health : MonoBehaviour
             playerHealth -= 10;
         else if (playerHealth > 0)
             playerHealth = 0;
-        print("hurt player : " + playerHealth);
+
+        UpdateUI();
+    }
+
+    //update UI elements to match new health stat
+    private void UpdateUI()
+    {
+        healthBar.SetHealth(playerHealth);
+        sr.color = new Color(Random.Range(0, 1), Random.Range(0, 1), Random.Range(0, 1), 1);
+        print("playerHealth : " + playerHealth);
     }
 }
