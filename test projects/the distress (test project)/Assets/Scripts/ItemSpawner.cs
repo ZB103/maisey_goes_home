@@ -6,17 +6,19 @@ using UnityEngine;
 public class ItemSpawner : MonoBehaviour
 {
     public GameObject HealPrefab;
-    private List<GameObject> HealObjList = new List<GameObject>();
+    public List<GameObject> HealObjList = new List<GameObject>();
     public GameObject HurtPrefab;
-    private List<GameObject> HurtObjList = new List<GameObject>();
+    public List<GameObject> HurtObjList = new List<GameObject>();
     public int maxItems;    //how many items of each type are allowed at once
     public float spawnDelay;
     private float nextSpawnTime;
+    public bool spawningOn; //allowed to spawn new items?
 
     private void Start()
     {
         maxItems = 2;
         spawnDelay = 1;
+        spawningOn = true;
     }
 
     // Update is called once per frame
@@ -36,13 +38,16 @@ public class ItemSpawner : MonoBehaviour
     //decide whether to spawn a hurt or heal and call to spawn it
     void CoinFlip()
     {
-        //choose random number
-        int coin = Random.Range(0, 100);
+        if (spawningOn)
+        {
+            //choose random number
+            int coin = Random.Range(0, 100);
 
-        if (coin % 2 == 0)
-            StartCoroutine(SpawnHeal());
-        else
-            StartCoroutine(SpawnHurt());
+            if (coin % 2 == 0)
+                StartCoroutine(SpawnHeal());
+            else
+                StartCoroutine(SpawnHurt());
+        }
     }
 
     //spawns an item using heal prefab

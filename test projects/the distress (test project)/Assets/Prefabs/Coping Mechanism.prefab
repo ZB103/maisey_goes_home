@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 321255975698784812}
   - component: {fileID: 210748792064314871}
   - component: {fileID: 8013999522600014932}
+  - component: {fileID: 8434349699253401388}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Heal
@@ -27,12 +28,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 308848838676803848}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.29712495, w: 0.95483863}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0.29712495, w: 0.95483863}
+  m_LocalPosition: {x: -3.4093056, y: 1.000325, z: -0.0024694293}
   m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6752979380949536417}
+  m_Father: {fileID: 9029351479786586834}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -34.57}
 --- !u!212 &321255975698784812
 SpriteRenderer:
@@ -148,6 +149,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &8434349699253401388
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308848838676803848}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3e4d14a7a56d5e545b72ee0ff64d23c6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2134640225768011015
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,6 +199,38 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2907246156124868604}
+  - {fileID: 9029351479786586834}
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4832419613142580125
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9029351479786586834}
+  m_Layer: 0
+  m_Name: Coping Mechanism
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9029351479786586834
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4832419613142580125}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.4093056, y: -1.000325, z: 0.0024694293}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2907246156124868604}
+  m_Father: {fileID: 6752979380949536417}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -219,10 +219,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb386f8ec7a45f4cb3553863f60c2f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealPrefab: {fileID: 1152255564}
-  HurtPrefab: {fileID: 1963430046}
+  HealPrefab: {fileID: 981046884}
+  HealObjList: []
+  HurtPrefab: {fileID: 1596340352}
+  HurtObjList: []
   maxItems: 0
   spawnDelay: 0
+  spawningOn: 0
 --- !u!1 &149801947
 GameObject:
   m_ObjectHideFlags: 0
@@ -834,6 +837,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b7b7897a4f31364fa3e4888fcc38a6a, type: 3}
+--- !u!1 &981046884 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4832419613142580125, guid: 4b7b7897a4f31364fa3e4888fcc38a6a, type: 3}
+  m_PrefabInstance: {fileID: 981046883}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1105530985
 GameObject:
   m_ObjectHideFlags: 0
@@ -1048,11 +1056,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1693574563253470509, guid: 438d35936e3c7e64684f44bdf4b3df5c, type: 3}
   m_PrefabInstance: {fileID: 602129703}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1152255564 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 308848838676803848, guid: 4b7b7897a4f31364fa3e4888fcc38a6a, type: 3}
-  m_PrefabInstance: {fileID: 981046883}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1572662841
 GameObject:
   m_ObjectHideFlags: 0
@@ -1204,6 +1207,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 803e6e39753018942b31690b9e2d03f9, type: 3}
+--- !u!1 &1596340352 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8572769574718095093, guid: 803e6e39753018942b31690b9e2d03f9, type: 3}
+  m_PrefabInstance: {fileID: 1596340351}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1621219211
 GameObject:
   m_ObjectHideFlags: 0
@@ -1354,11 +1362,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1627050677}
   m_CullTransparentMesh: 1
---- !u!1 &1963430046 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3774916791756660028, guid: 803e6e39753018942b31690b9e2d03f9, type: 3}
-  m_PrefabInstance: {fileID: 1596340351}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
