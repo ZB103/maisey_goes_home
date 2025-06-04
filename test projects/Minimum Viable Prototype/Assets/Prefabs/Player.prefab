@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 7817391217124433693}
   - component: {fileID: 2128935759100040355}
   - component: {fileID: 5663107205127091001}
-  - component: {fileID: 8695404171861286073}
+  - component: {fileID: 3378035207477362848}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Player
@@ -143,7 +143,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -190,7 +190,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.1, y: 1.1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &5663107205127091001
 MonoBehaviour:
@@ -206,7 +206,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   jumpForce: 30
---- !u!114 &8695404171861286073
+  movementOn: 0
+--- !u!114 &3378035207477362848
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -215,6 +216,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8540013365076886245}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bbe0620c9b59174ba708f73ff971061, type: 3}
+  m_Script: {fileID: 11500000, guid: 8df1e753baef206409c7a3174550f563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerStress: 0
+  sr: {fileID: 0}
