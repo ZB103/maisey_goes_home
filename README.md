@@ -1,4 +1,4 @@
-Platform Spectrum (working title) is a 2D platformer in which you play an autistic protagonist. You must navigate the social, sensory, and attention challenges as you hop across platforms, escape from enemies, and work toward your goal of finding the Super Special Thing.  
+A 2D Platformer where you play an autistic girl navigating her disability while trying to get home.  
   
 The game is currently in early pre-alpha.  
 Three small test games have been made to expand on the core features of the game.  
