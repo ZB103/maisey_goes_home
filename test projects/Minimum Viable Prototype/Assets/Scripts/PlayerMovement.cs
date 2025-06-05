@@ -5,24 +5,32 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed; //horizontal movement
-    public float jumpForce; //vertical movement
     private Rigidbody2D rb;
+    private float moveSpeed; //horizontal movement
+    private float jumpForce; //vertical movement
     public bool movementOn; //player can move?
     private bool isTouchingGround;    //player is touching the ground?
+    private bool isJumping;         //jump is in progress?
     private float maxCoyoteTime;    //jump allowed for extra time after leaving platform
     private float coyoteTimer;   //timer used to determine whether jump is allowed at that moment
     private bool inJumpBuffer;  //player is within jump buffer range?
+    private float apexFloat;    //amount of velocity adjustment at apex of a jump
+    private float descentMultiplier;  //amount of velocity adjustment when falling
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        moveSpeed = 10;
+        jumpForce = 30;
         isTouchingGround = false;
+        isJumping = false;
         inJumpBuffer = true;
-        Physics2D.gravity = new Vector2(0, -75f);
+        Physics2D.gravity = new Vector2(0, -70f);
         movementOn = true;
         maxCoyoteTime = 0.1f;
+        apexFloat = .8f;
+        descentMultiplier = 0.1f;
     }
 
     // Update is called once per frame
@@ -41,16 +49,29 @@ public class PlayerMovement : MonoBehaviour
             coyoteTimer -= Time.deltaTime;
 
             //execute jump if within buffer and coyote allowance
-            if ((isTouchingGround | inJumpBuffer || coyoteTimer > 0f) && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)))
+            if ((isTouchingGround || inJumpBuffer || coyoteTimer > 0f) && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)))
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 isTouchingGround = false;
+                isJumping = true;
             }
 
             //release jump early
             if (rb.velocity.y > 0f && (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.W)))
             {
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce * 0.35f);
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.4f);
+            }
+
+            //simulate reduced gravity at top of jump
+            if (rb.velocity.y <= 0.1f && rb.velocity.y >= -0.1f && isJumping)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y - apexFloat);
+            }
+
+            //fall quickly
+            if (rb.velocity.y < -1f)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y - descentMultiplier);
             }
         }
     }
@@ -60,8 +81,8 @@ public class PlayerMovement : MonoBehaviour
         //land on platform
         if (collision.gameObject.tag == "Platform")
         {
-            rb.velocity = new Vector2(rb.velocity.x, 0);
             isTouchingGround = true;
+            isJumping = false;
         }
     }
 
