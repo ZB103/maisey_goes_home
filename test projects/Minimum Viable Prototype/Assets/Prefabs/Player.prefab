@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  jumpForce: 30
+  jumpForce: 25
   movementOn: 0
 --- !u!114 &3378035207477362848
 MonoBehaviour:
