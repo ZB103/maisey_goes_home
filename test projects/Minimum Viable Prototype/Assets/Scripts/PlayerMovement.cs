@@ -76,6 +76,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void PrintAll()
+    {
+        print("isTouchingGround " + isTouchingGround +
+            "\nisJumping " + isJumping + 
+            "\nmovementOn " + movementOn);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //land on platform

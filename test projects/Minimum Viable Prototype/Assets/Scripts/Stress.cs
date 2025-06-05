@@ -2,25 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spoons : MonoBehaviour
+public class Stress : MonoBehaviour
 {
     public int playerStress;
-    //public SpoonBar spoonBar;
+    public int startStress = 0;
+    public StressBar stressBar;
     public SpriteRenderer sr;
     private PlayerMovement m;
 
     // Start is called before the first frame update
     void Awake()
     {
-        playerStress = 0;
+        playerStress = startStress;
+        stressBar = GameObject.Find("StressBar").GetComponent<StressBar>();
         sr = gameObject.GetComponent<SpriteRenderer>();
         m = GetComponent<PlayerMovement>();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        
-    }
+    //debug controls
+    //public void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.G))
+    //    {
+    //        Hurt();
+    //    }
+    //    else if (Input.GetKeyDown(KeyCode.H))
+    //    {
+    //        Heal();
+    //    }
+    //}
 
     //add to player's sensory overload
     public void Hurt()
@@ -45,22 +55,22 @@ public class Spoons : MonoBehaviour
     }
 
     //update UI elements to match new health stat
-    private void UpdateUI()
+    public void UpdateUI()
     {
-        //spoonBar.SetHealth(playerStress);
-        
+        stressBar.SetHealth(playerStress);
+
         print("playerStress : " + playerStress);
 
         //check for death condition
         if (playerStress <= 0)
-            PlayerDeath();
+            PlayerOverload();
     }
 
-    //stop movement and show death animation, then reset
-    private void PlayerDeath()
+    //stop movement and show meltdown animation, then reset
+    private void PlayerOverload()
     {
         //player can't move
-        m.movementOn = false;
+        //m.movementOn = false;
 
         //reset game
         //PLACEHOLDER

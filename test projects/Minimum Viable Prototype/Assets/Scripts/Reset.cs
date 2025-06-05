@@ -23,7 +23,7 @@ public class Reset : MonoBehaviour
     }
 
     //Resets character position to start upon falling
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject == player)
         {
@@ -36,28 +36,35 @@ public class Reset : MonoBehaviour
     }
 
     //fade to black to reset character
-    public IEnumerator FadeToBlack(bool fadeOut = true, int fadeSpeed = 2)
+    private IEnumerator FadeToBlack(bool fadeOut = true, int fadeSpeed = 2)
     {
+        player.GetComponent<PlayerMovement>().PrintAll();
+        print("player fell. resetting.");
         Color objectColor = blackScreen.GetComponent<Image>().color;
         float fadeAmount;
 
+        //fade out
+        while (blackScreen.GetComponent<Image>().color.a < 1)
+        {
+            fadeAmount = objectColor.a + (fadeSpeed * Time.deltaTime);
 
-            print("player death. resetting.");
-            while (blackScreen.GetComponent<Image>().color.a < 1)
-            {
-                fadeAmount = objectColor.a + (fadeSpeed * Time.deltaTime);
+            objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+            blackScreen.GetComponent<Image>().color = objectColor;
+            yield return null;
+        }
 
-                objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
-                blackScreen.GetComponent<Image>().color = objectColor;
-                yield return null;
-            }
+        //tp player
+        player.GetComponent<Rigidbody2D>().velocity = resetVelocity;
+        player.transform.position = resetPosition;
 
-            //tp player and fade back in
-            player.GetComponent<Rigidbody2D>().velocity = resetVelocity;
-            player.transform.position = resetPosition;
-            //yield return new WaitForEndOfFrame();
-        
-            while (blackScreen.GetComponent<Image>().color.a > 0)
+        //reset player stats
+        player.GetComponent<Health>().playerHealth = player.GetComponent<Health>().startHealth;
+        player.GetComponent<Health>().UpdateUI();
+        player.GetComponent<Stress>().playerStress = player.GetComponent<Stress>().startStress;
+        player.GetComponent<Stress>().UpdateUI();
+
+        //fade in
+        while (blackScreen.GetComponent<Image>().color.a > 0)
             {
                 fadeAmount = objectColor.a - (fadeSpeed * Time.deltaTime);
 
@@ -65,7 +72,8 @@ public class Reset : MonoBehaviour
                 blackScreen.GetComponent<Image>().color = objectColor;
                 yield return null;
             }
-            hasDied = false;
-            yield break;
+        hasDied = false;
+        player.GetComponent<PlayerMovement>().PrintAll();
+        yield break;
     }
 }

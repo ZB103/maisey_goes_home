@@ -11,9 +11,9 @@ public class HarmPlayer : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    //harm player upon collision
+    //harm player's stress levels upon collision
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        player.GetComponent<Spoons>().Hurt();
+        player.GetComponent<Stress>().Hurt();
     }
 }
