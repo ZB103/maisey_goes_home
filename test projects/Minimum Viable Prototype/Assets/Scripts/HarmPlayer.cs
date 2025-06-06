@@ -4,16 +4,29 @@ using UnityEngine;
 
 public class HarmPlayer : MonoBehaviour
 {
-    public GameObject player;
+    private GameObject player;
+    private Stress pStress;
+    private Health pHealth;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        pStress = player.GetComponent<Stress>();
+        pHealth = player.GetComponent<Health>();
     }
 
     //harm player's stress levels upon collision
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        player.GetComponent<Stress>().Hurt();
+        pStress.Hurt();
+        if(pStress.playerStress >= 90)
+            {
+            pHealth.Hurt();
+        }
+
+        if (pStress.playerStress >= 70)
+        {
+            pHealth.Hurt();
+        }
     }
 }

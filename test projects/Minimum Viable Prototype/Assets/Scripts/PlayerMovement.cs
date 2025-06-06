@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private Health pHealth;
+    private Stress pStress;
+    private float maxMoveSpeed; //horizontal movement max speed
     private float moveSpeed; //horizontal movement
+    private float maxJumpForce; //vertical movement max force
     private float jumpForce; //vertical movement
     public bool movementOn; //player can move?
     private bool isTouchingGround;    //player is touching the ground?
@@ -16,13 +21,22 @@ public class PlayerMovement : MonoBehaviour
     private bool inJumpBuffer;  //player is within jump buffer range?
     private float apexFloat;    //amount of velocity adjustment at apex of a jump
     private float descentMultiplier;  //amount of velocity adjustment when falling
+    //death and reset
+    public GameObject blackScreen;
+    private Vector3 resetPosition = new Vector3();
+    private Vector2 resetVelocity = new Vector2();
+    private bool hasDied;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        moveSpeed = 10;
-        jumpForce = 30;
+        pHealth = gameObject.GetComponent<Health>();
+        pStress = gameObject.GetComponent<Stress>();
+        maxMoveSpeed = 10;
+        moveSpeed = maxMoveSpeed;
+        maxJumpForce = 30;
+        jumpForce = maxJumpForce;
         isTouchingGround = false;
         isJumping = false;
         inJumpBuffer = true;
@@ -31,6 +45,12 @@ public class PlayerMovement : MonoBehaviour
         maxCoyoteTime = 0.1f;
         apexFloat = .8f;
         descentMultiplier = 0.1f;
+        resetPosition = gameObject.transform.position;
+        resetVelocity = new Vector2(0, 0);
+        blackScreen = GameObject.Find("Black Panel");
+        hasDied = false;
+
+        InvokeRepeating("CheckForDeath", 0f, 1f);
     }
 
     // Update is called once per frame
@@ -80,7 +100,9 @@ public class PlayerMovement : MonoBehaviour
     {
         print("isTouchingGround " + isTouchingGround +
             "\nisJumping " + isJumping + 
-            "\nmovementOn " + movementOn);
+            "\nmovementOn " + movementOn + 
+            "\njumpForce " + jumpForce +
+            "\nmoveSpeed " + moveSpeed);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -90,6 +112,17 @@ public class PlayerMovement : MonoBehaviour
         {
             isTouchingGround = true;
             isJumping = false;
+
+            //change movement speed if too stressed
+            if (pStress.playerStress >= 90)
+                jumpForce = maxJumpForce / 2;
+            else
+                jumpForce = maxJumpForce;
+
+            if (pStress.playerStress >= 70)
+                moveSpeed = maxMoveSpeed - (pStress.playerStress / 15);
+            else
+                moveSpeed = maxMoveSpeed;
         }
     }
 
@@ -115,5 +148,58 @@ public class PlayerMovement : MonoBehaviour
         {
             inJumpBuffer = false;
         }
+    }
+
+    //periodically check if character is dead
+    void CheckForDeath()
+    {
+        if (pHealth.playerHealth <= 0 || gameObject.transform.position.y < -100)
+        {
+            if (!hasDied)
+            {
+                StartCoroutine(FadeToBlack());
+                hasDied = true;
+            }
+        }
+    }
+
+    //fade to black to reset character
+    private IEnumerator FadeToBlack(bool fadeOut = true, int fadeSpeed = 2)
+    {
+        Color objectColor = blackScreen.GetComponent<Image>().color;
+        float fadeAmount;
+
+        //fade out
+        while (blackScreen.GetComponent<Image>().color.a < 1)
+        {
+            fadeAmount = objectColor.a + (fadeSpeed * Time.deltaTime);
+
+            objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+            blackScreen.GetComponent<Image>().color = objectColor;
+            yield return null;
+        }
+
+        //tp player
+        gameObject.GetComponent<Rigidbody2D>().velocity = resetVelocity;
+        gameObject.transform.position = resetPosition;
+
+        //reset gameObject stats
+        gameObject.GetComponent<Health>().playerHealth = gameObject.GetComponent<Health>().startHealth;
+        gameObject.GetComponent<Health>().UpdateUI();
+        gameObject.GetComponent<Stress>().playerStress = gameObject.GetComponent<Stress>().startStress;
+        gameObject.GetComponent<Stress>().UpdateUI();
+
+        //fade in
+        while (blackScreen.GetComponent<Image>().color.a > 0)
+        {
+            fadeAmount = objectColor.a - (fadeSpeed * Time.deltaTime);
+
+            objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+            blackScreen.GetComponent<Image>().color = objectColor;
+            yield return null;
+        }
+        hasDied = false;
+        gameObject.GetComponent<PlayerMovement>().PrintAll();
+        yield break;
     }
 }

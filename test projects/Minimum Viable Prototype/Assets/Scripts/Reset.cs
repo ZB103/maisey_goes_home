@@ -39,7 +39,6 @@ public class Reset : MonoBehaviour
     private IEnumerator FadeToBlack(bool fadeOut = true, int fadeSpeed = 2)
     {
         player.GetComponent<PlayerMovement>().PrintAll();
-        print("player fell. resetting.");
         Color objectColor = blackScreen.GetComponent<Image>().color;
         float fadeAmount;
 

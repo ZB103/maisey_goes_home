@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    public int playerHealth;
-    public int startHealth = 100;
+    public float playerHealth;
+    public float startHealth = 100;
     public HealthBar healthBar;
     public SpriteRenderer sr;
     private PlayerMovement m;
@@ -25,31 +25,33 @@ public class Health : MonoBehaviour
     //    if (Input.GetKeyDown(KeyCode.T))
     //    {
     //        Hurt();
+    //        print("playerHealth : " + playerHealth);
     //    }
     //    else if (Input.GetKeyDown(KeyCode.Y))
     //    {
     //        Heal();
+    //        print("playerHealth : " + playerHealth);
     //    }
     //}
 
-    //add to player's sensory overload
+    //subtract from player's health
     public void Hurt()
     {
-        if (playerHealth <= 90)
-            playerHealth += 10;
-        else if (playerHealth < 100)
-            playerHealth = 100;
+        if (playerHealth >= 10)
+            playerHealth -= 10;
+        else if (playerHealth < 10)
+            playerHealth = 0;
 
         UpdateUI();
     }
 
-    //remove from the player's sensory overload
+    //add to player's health
     public void Heal()
     {
-        if (playerHealth >= 10)
-            playerHealth -= 10;
-        else if (playerHealth > 0)
-            playerHealth = 0;
+        if (playerHealth <= 90)
+            playerHealth += 10;
+        else if (playerHealth > 90)
+            playerHealth = 100;
 
         UpdateUI();
     }
@@ -57,9 +59,7 @@ public class Health : MonoBehaviour
     //update UI elements to match new health stat
     public void UpdateUI()
     {
-        healthBar.SetHealth(playerHealth);
-
-        print("playerHealth : " + playerHealth);
+        healthBar.SetHealth((int)playerHealth);
 
         //check for death condition
         if (playerHealth <= 0)

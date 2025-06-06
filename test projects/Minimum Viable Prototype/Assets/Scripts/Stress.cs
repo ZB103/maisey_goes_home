@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Stress : MonoBehaviour
 {
-    public int playerStress;
-    public int startStress = 0;
+    public float playerStress;
+    public float startStress = 0;
     public StressBar stressBar;
     public SpriteRenderer sr;
     private PlayerMovement m;
@@ -25,10 +25,12 @@ public class Stress : MonoBehaviour
     //    if (Input.GetKeyDown(KeyCode.G))
     //    {
     //        Hurt();
+    //        print("playerStress : " + playerStress);
     //    }
     //    else if (Input.GetKeyDown(KeyCode.H))
     //    {
     //        Heal();
+    //        print("playerStress : " + playerStress);
     //    }
     //}
 
@@ -57,9 +59,7 @@ public class Stress : MonoBehaviour
     //update UI elements to match new health stat
     public void UpdateUI()
     {
-        stressBar.SetHealth(playerStress);
-
-        print("playerStress : " + playerStress);
+        stressBar.SetHealth((int)playerStress);
 
         //check for death condition
         if (playerStress <= 0)
