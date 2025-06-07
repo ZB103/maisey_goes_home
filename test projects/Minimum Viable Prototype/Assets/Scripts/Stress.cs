@@ -59,9 +59,10 @@ public class Stress : MonoBehaviour
     //update UI elements to match new health stat
     public void UpdateUI()
     {
+        m.UpdateStats();
         stressBar.SetHealth((int)playerStress);
 
-        //check for death condition
+        //check for sensory overload condition
         if (playerStress <= 0)
             PlayerOverload();
     }

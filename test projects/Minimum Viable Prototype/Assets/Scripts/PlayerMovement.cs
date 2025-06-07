@@ -15,10 +15,10 @@ public class PlayerMovement : MonoBehaviour
     private float jumpForce; //vertical movement
     public bool movementOn; //player can move?
     private bool isTouchingGround;    //player is touching the ground?
+    private int countTouchingGround;    //how many grounds is the player touching?
     private bool isJumping;         //jump is in progress?
     private float maxCoyoteTime;    //jump allowed for extra time after leaving platform
     private float coyoteTimer;   //timer used to determine whether jump is allowed at that moment
-    private bool inJumpBuffer;  //player is within jump buffer range?
     private float apexFloat;    //amount of velocity adjustment at apex of a jump
     private float descentMultiplier;  //amount of velocity adjustment when falling
     //death and reset
@@ -38,8 +38,8 @@ public class PlayerMovement : MonoBehaviour
         maxJumpForce = 30;
         jumpForce = maxJumpForce;
         isTouchingGround = false;
+        countTouchingGround = 0;
         isJumping = false;
-        inJumpBuffer = true;
         Physics2D.gravity = new Vector2(0, -70f);
         movementOn = true;
         maxCoyoteTime = 0.1f;
@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
             coyoteTimer -= Time.deltaTime;
 
             //execute jump if within buffer and coyote allowance
-            if ((isTouchingGround || inJumpBuffer || coyoteTimer > 0f) && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)))
+            if ((isTouchingGround || coyoteTimer > 0f) && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)))
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 isTouchingGround = false;
@@ -105,48 +105,39 @@ public class PlayerMovement : MonoBehaviour
             "\nmoveSpeed " + moveSpeed);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    //change move/jump stats based on stress levels
+    public void UpdateStats()
     {
-        //land on platform
-        if (collision.gameObject.tag == "Platform")
-        {
-            isTouchingGround = true;
-            isJumping = false;
+        if (pStress.playerStress >= 90)
+            jumpForce = maxJumpForce / 2;
+        else
+            jumpForce = maxJumpForce;
 
-            //change movement speed if too stressed
-            if (pStress.playerStress >= 90)
-                jumpForce = maxJumpForce / 2;
-            else
-                jumpForce = maxJumpForce;
-
-            if (pStress.playerStress >= 70)
-                moveSpeed = maxMoveSpeed - (pStress.playerStress / 15);
-            else
-                moveSpeed = maxMoveSpeed;
-        }
+        if (pStress.playerStress >= 70)
+            moveSpeed = maxMoveSpeed - (pStress.playerStress / 15);
+        else
+            moveSpeed = maxMoveSpeed;
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Platform")
+        if (collision.gameObject.tag == "Platform")
         {
-            isTouchingGround = false;
+            countTouchingGround -= 1;
+            isTouchingGround = countTouchingGround > 0 ? true : false;
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //land on platform
         if (collision.gameObject.tag == "Platform")
         {
-            inJumpBuffer = true;
-        }
-    }
+            countTouchingGround += 1;
+            isTouchingGround = countTouchingGround > 0 ? true : false;
+            isJumping = false;
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Platform")
-        {
-            inJumpBuffer = false;
+            UpdateStats();
         }
     }
 
@@ -199,7 +190,6 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         hasDied = false;
-        gameObject.GetComponent<PlayerMovement>().PrintAll();
         yield break;
     }
 }
