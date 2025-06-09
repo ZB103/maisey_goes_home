@@ -16,11 +16,11 @@ public class HarmPlayer : MonoBehaviour
     }
 
     //harm player's stress levels upon collision
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         pStress.Hurt();
-        if(pStress.playerStress >= 90)
-            {
+        if (pStress.playerStress >= 90)
+        {
             pHealth.Hurt();
         }
 

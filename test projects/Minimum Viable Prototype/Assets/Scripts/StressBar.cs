@@ -15,7 +15,7 @@ public class StressBar : MonoBehaviour
         stressBar.value = playerStress.playerStress;
     }
 
-    public void SetHealth(int sp)
+    public void SetStress(int sp)
     {
         stressBar.value = sp;
     }

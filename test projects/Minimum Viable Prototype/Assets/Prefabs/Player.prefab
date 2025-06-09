@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 2128935759100040355}
   - component: {fileID: 5663107205127091001}
   - component: {fileID: 3378035207477362848}
+  - component: {fileID: 199691274215666944}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Player
@@ -204,8 +205,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f62b21a7ad9ec594fa9f887906906fdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
-  jumpForce: 25
   movementOn: 0
 --- !u!114 &3378035207477362848
 MonoBehaviour:
@@ -220,4 +219,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStress: 0
+  startStress: 0
+  stressBar: {fileID: 0}
+--- !u!114 &199691274215666944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8540013365076886245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 632c4809d309c0641b66cfbe51321fab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: 0
+  startHealth: 100
+  healthBar: {fileID: 0}
   sr: {fileID: 0}
+  blackScreen: {fileID: 0}
+  deathScreen: {fileID: 0}
+  strikesLeft: 0
+  numLives: 0

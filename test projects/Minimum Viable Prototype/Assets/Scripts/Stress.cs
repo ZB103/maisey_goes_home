@@ -1,22 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Stress : MonoBehaviour
 {
     public float playerStress;
     public float startStress = 0;
     public StressBar stressBar;
-    public SpriteRenderer sr;
-    private PlayerMovement m;
 
     // Start is called before the first frame update
     void Awake()
     {
         playerStress = startStress;
         stressBar = GameObject.Find("StressBar").GetComponent<StressBar>();
-        sr = gameObject.GetComponent<SpriteRenderer>();
-        m = GetComponent<PlayerMovement>();
     }
 
     //debug controls
@@ -56,24 +53,9 @@ public class Stress : MonoBehaviour
         UpdateUI();
     }
 
-    //update UI elements to match new health stat
+    //check for death & update UI elements to match new health stat
     public void UpdateUI()
     {
-        m.UpdateStats();
-        stressBar.SetHealth((int)playerStress);
-
-        //check for sensory overload condition
-        if (playerStress <= 0)
-            PlayerOverload();
-    }
-
-    //stop movement and show meltdown animation, then reset
-    private void PlayerOverload()
-    {
-        //player can't move
-        //m.movementOn = false;
-
-        //reset game
-        //PLACEHOLDER
+        stressBar.SetStress((int)playerStress);
     }
 }
