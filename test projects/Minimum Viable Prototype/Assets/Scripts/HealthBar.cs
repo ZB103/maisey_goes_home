@@ -9,7 +9,7 @@ public class HealthBar : MonoBehaviour
     public Health playerHealth;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
         healthBar.value = playerHealth.playerHealth;

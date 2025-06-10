@@ -57,5 +57,6 @@ public class Stress : MonoBehaviour
     public void UpdateUI()
     {
         stressBar.SetStress((int)playerStress);
+        GetComponent<PlayerMovement>().UpdateStats();
     }
 }

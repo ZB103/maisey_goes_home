@@ -8,28 +8,21 @@ public class Health : MonoBehaviour
     public float playerHealth;
     public float startHealth = 100;
     public HealthBar healthBar;
-    private PlayerMovement m;
-    public GameObject blackScreen;
-    public GameObject deathScreen;
-    private Stack<Vector3> spawnLocation = new Stack<Vector3>();
-    private Vector2 resetVelocity = new Vector2();
     public int strikesLeft;    //number of times the player has died this attempt
     public int numLives;       //starting number of lives
+    private ResetGame resetGame;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         playerHealth = startHealth;
         healthBar = GameObject.Find("HealthBar").GetComponent<HealthBar>();
-        m = GetComponent<PlayerMovement>();
-        blackScreen = GameObject.Find("Black Panel");
-        deathScreen = GameObject.Find("Death Screen");
-        deathScreen.SetActive(false);
-        spawnLocation.Push(gameObject.transform.position);
-        resetVelocity = new Vector2(0, 0);
+        resetGame = GetComponent<ResetGame>();
         numLives = 3;
         strikesLeft = numLives;
 
+        UpdateUI();
         StartCoroutine(CheckForDeath());
     }
 
@@ -74,47 +67,6 @@ public class Health : MonoBehaviour
     public void UpdateUI()
     {
         healthBar.SetHealth((int)playerHealth);
-        m.UpdateStats();
-
-        //check for strike condition
-        if (playerHealth <= 0 || m.transform.position.y < -100)
-        {
-            strikesLeft--;
-            StartCoroutine(FadeToBlack());
-        }
-    }
-
-    public void ResetPlayer()
-    {
-        deathScreen.SetActive(false);
-        StartCoroutine(FadeFromBlack());
-
-        //reset player stats
-        gameObject.GetComponent<Health>().playerHealth = gameObject.GetComponent<Health>().startHealth;
-        UpdateUI();
-        gameObject.GetComponent<Stress>().playerStress = gameObject.GetComponent<Stress>().startStress;
-        gameObject.GetComponent<Stress>().UpdateUI();
-        m.movementOn = true;
-        strikesLeft = numLives;
-
-        //reset spawn point
-        while(spawnLocation.Count > 1)
-        {
-            spawnLocation.Pop();
-        }
-
-        //tp player
-        gameObject.GetComponent<Rigidbody2D>().velocity = resetVelocity;
-        gameObject.transform.position = spawnLocation.Peek();
-    }
-
-    //set spawn point
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Respawn")
-        {
-            spawnLocation.Push(collision.transform.position);
-        }
     }
 
     //Regularly checks for death condition
@@ -122,63 +74,17 @@ public class Health : MonoBehaviour
     {
         while (true)
         {
-            UpdateUI();
+            //check for strike condition
+            if (playerHealth <= 0 || transform.position.y < -100)
+            {
+                strikesLeft--;
+                if (strikesLeft <= 0)
+                    StartCoroutine(resetGame.FadeToBlack("loss"));
+                else
+                    StartCoroutine(resetGame.FadeToBlack());
+            }
+
             yield return new WaitForSeconds(1);
         }
-    }
-
-    //fade out
-    IEnumerator FadeToBlack(int fadeSpeed = 2)
-    {
-        m.movementOn = false;
-        Color objectColor = blackScreen.GetComponent<Image>().color;
-        float fadeAmount;
-
-        //fade out
-        while (blackScreen.GetComponent<Image>().color.a < 1)
-        {
-            fadeAmount = objectColor.a + (fadeSpeed * Time.deltaTime);
-
-            objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
-            blackScreen.GetComponent<Image>().color = objectColor;
-            yield return null;
-        }
-
-        //if player has used all lives, go to death screen
-        //otherwise spawn at last spawn point
-        if(strikesLeft <= 0)
-            deathScreen.SetActive(true);
-        else
-            StartCoroutine(FadeFromBlack());
-        yield break;
-    }
-
-    //fade in
-    public IEnumerator FadeFromBlack(int fadeSpeed = 2)
-    {
-        //tp player
-        gameObject.GetComponent<Rigidbody2D>().velocity = resetVelocity;
-        gameObject.transform.position = spawnLocation.Peek();
-        //reset player stats
-        gameObject.GetComponent<Health>().playerHealth = gameObject.GetComponent<Health>().startHealth;
-        UpdateUI();
-        gameObject.GetComponent<Stress>().playerStress = gameObject.GetComponent<Stress>().startStress;
-        gameObject.GetComponent<Stress>().UpdateUI();
-
-
-        Color objectColor = blackScreen.GetComponent<Image>().color;
-        float fadeAmount;
-
-        //fade in
-        while (blackScreen.GetComponent<Image>().color.a > 0)
-        {
-            fadeAmount = objectColor.a - (fadeSpeed * Time.deltaTime);
-
-            objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
-            blackScreen.GetComponent<Image>().color = objectColor;
-            yield return null;
-        }
-        m.movementOn = true;
-        yield break;
     }
 }

@@ -9,9 +9,9 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Stress pStress;
     private float maxMoveSpeed; //horizontal movement max speed
-    private float moveSpeed; //horizontal movement
+    public float moveSpeed; //horizontal movement
     private float maxJumpForce; //vertical movement max force
-    private float jumpForce; //vertical movement
+    public float jumpForce; //vertical movement
     public bool movementOn; //player can move?
     private bool isTouchingGround;    //player is touching the ground?
     private int countTouchingGround;    //how many grounds is the player touching?
