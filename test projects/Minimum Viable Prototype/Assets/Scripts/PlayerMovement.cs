@@ -85,12 +85,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void PrintAll()
     {
-        print("isTouchingGround " + isTouchingGround +
+        print("movementOn " + movementOn +
+            "\nmoveSpeed " + moveSpeed + 
+            "\nisTouchingGround " + isTouchingGround +
             "\ncountTouchingGround " + countTouchingGround + 
-            "\nisJumping " + isJumping + 
-            "\nmovementOn " + movementOn + 
-            "\njumpForce " + jumpForce +
-            "\nmoveSpeed " + moveSpeed);
+            "\nisJumping " + isJumping +
+            "\njumpForce " + jumpForce
+            );
     }
 
     //change move/jump stats based on stress levels
