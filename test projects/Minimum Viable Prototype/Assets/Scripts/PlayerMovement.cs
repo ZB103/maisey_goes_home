@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         pStress = GetComponent<Stress>();
-        maxMoveSpeed = 10;
+        maxMoveSpeed = 15;
         moveSpeed = maxMoveSpeed;
         maxJumpForce = 30;
         jumpForce = maxJumpForce;
