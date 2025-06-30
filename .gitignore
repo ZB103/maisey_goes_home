@@ -76,4 +76,4 @@ crashlytics-build.properties
 
 # Art files
 *.clip
-/Assets/Sprites/ClipFiles/
+**/ClipFiles
