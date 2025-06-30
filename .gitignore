@@ -76,7 +76,7 @@ crashlytics-build.properties
 
 # Art files
 *.clip
-**/ClipFiles
+**/[Cc]lip[Ff]iles
 
 # Test projects
 **/[Zz][Tt]est[Pp]rojects
