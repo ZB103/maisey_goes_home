@@ -1,10 +1,11 @@
 A 2D Platformer where you play an autistic girl navigating her disability while trying to get home.  
   
-The game is currently in early pre-alpha.  
-Three small test games have been made to expand on the core features of the game.  
-- the platform  
-- the npc  
-- the distress  
-A Minimum Viable Prototype is currently in progress. The latest build is available.  
-  
-Please feel free to try them out, and I hope they made you excited for the full game!  
+The game is currently in alpha.  
+The main branch consists of the latest progress of the game.  
+
+The prototyping branch consists of:  
+- the platform: testing platforming mechanics  
+- the npc: testing NPC dialogue interaction mechanics  
+- the distress: testing damage and health restoration mechanics  
+- MVP: combining the platform, the npc, and the distress, and adding win/lose conditions, secondary stress bar that does damage, and movement changes relating to distress. This is considered the Minimum Viable Prototype/Product.  
+- Art Prototyping: early concept art and work on player character design  
