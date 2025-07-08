@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     private Stress pStress;
     private float maxMoveSpeed; //horizontal movement max speed
     public float moveSpeed; //horizontal movement
+    private float acc;  //horizontal acceleration
+    private float dec;  //horizontal deceleration
     private float maxJumpForce; //vertical movement max force
     public float jumpForce; //vertical movement
     public bool movementOn; //player can move?
@@ -28,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
         pStress = GetComponent<Stress>();
         maxMoveSpeed = 15;
         moveSpeed = maxMoveSpeed;
+        acc = 2f;
+        dec = 2.5f;
         maxJumpForce = 30;
         jumpForce = maxJumpForce;
         isTouchingGround = false;
@@ -43,11 +47,54 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float horizInput = Input.GetAxis("Horizontal");
         if (movementOn)
         {
-            //horizontal movement
-            rb.velocity = new Vector2(horizInput * moveSpeed, rb.velocity.y);
+            //right movement
+            if (Input.GetKey(KeyCode.D) && rb.velocity.x < moveSpeed)
+            {
+                //same direction
+                if (rb.velocity.x >= 0)
+                {
+                    rb.velocity = new Vector2(rb.velocity.x + acc, rb.velocity.y);
+                }
+                //turn around
+                else
+                {
+                    rb.velocity = new Vector2(rb.velocity.x * -0.2f, rb.velocity.y);
+                }
+            }
+            else if (rb.velocity.x > 0)
+            {
+                rb.velocity = new Vector2(rb.velocity.x - dec, rb.velocity.y);
+                if (rb.velocity.x < dec)
+                {
+                    rb.velocity = new Vector2(0, rb.velocity.y);
+                }
+            }
+
+            //left movement
+            if (Input.GetKey(KeyCode.A) && rb.velocity.x > -moveSpeed)
+            {
+                //same direction
+                if (rb.velocity.x <= 0)
+                {
+                    rb.velocity = new Vector2(rb.velocity.x - acc, rb.velocity.y);
+                }
+                //turn around
+                else
+                {
+                    rb.velocity = new Vector2(rb.velocity.x * -0.2f, rb.velocity.y);
+                }
+            }
+            else if (rb.velocity.x < 0)
+            {
+                rb.velocity = new Vector2(rb.velocity.x + dec, rb.velocity.y);
+                if(rb.velocity.x > -dec)
+                {
+                    rb.velocity = new Vector2(0, rb.velocity.y);
+                }
+            }
+
 
             //start coyote buffer countdown
             if (isTouchingGround)
