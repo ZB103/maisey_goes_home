@@ -4731,6 +4731,18 @@ PrefabInstance:
       propertyPath: deathScreen
       value: 
       objectReference: {fileID: 1339757534}
+    - target: {fileID: 3320286375569660175, guid: a8d992b9f5f044f4ab68da274ab5a8c3, type: 3}
+      propertyPath: m_Size.y
+      value: 1.0009766
+      objectReference: {fileID: 0}
+    - target: {fileID: 3320286375569660175, guid: a8d992b9f5f044f4ab68da274ab5a8c3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1238651630, guid: ecd2ba82a57f4c24eab1ebc0984da70b, type: 3}
+    - target: {fileID: 3320286375569660175, guid: a8d992b9f5f044f4ab68da274ab5a8c3, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3378035207477362848, guid: a8d992b9f5f044f4ab68da274ab5a8c3, type: 3}
       propertyPath: stressBar
       value: 
@@ -4786,6 +4798,14 @@ PrefabInstance:
     - target: {fileID: 4107852946133507843, guid: a8d992b9f5f044f4ab68da274ab5a8c3, type: 3}
       propertyPath: m_TagString
       value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 5219197737500340975, guid: a8d992b9f5f044f4ab68da274ab5a8c3, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 1.0009766
+      objectReference: {fileID: 0}
+    - target: {fileID: 5219197737500340975, guid: a8d992b9f5f044f4ab68da274ab5a8c3, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.0009766
       objectReference: {fileID: 0}
     - target: {fileID: 5663107205127091001, guid: a8d992b9f5f044f4ab68da274ab5a8c3, type: 3}
       propertyPath: jumpForce
@@ -5055,7 +5075,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1748256958
 MonoBehaviour:
   m_ObjectHideFlags: 0
