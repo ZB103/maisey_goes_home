@@ -4173,6 +4173,18 @@ MonoBehaviour:
   blackScreen: {fileID: 1850669193}
   deathScreen: {fileID: 1339757534}
   winScreen: {fileID: 1762806790}
+--- !u!114 &1327035587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095695205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8979dd64425c8204c9c09b10f1d49242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1329336528 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3458136583389126381, guid: 1c124acb4f5caf8479bd06df7c9c8d62, type: 3}
@@ -4834,6 +4846,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8540013365076886245, guid: a8d992b9f5f044f4ab68da274ab5a8c3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1327035579}
+    - targetCorrespondingSourceObject: {fileID: 8540013365076886245, guid: a8d992b9f5f044f4ab68da274ab5a8c3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1327035587}
   m_SourcePrefab: {fileID: 100100000, guid: a8d992b9f5f044f4ab68da274ab5a8c3, type: 3}
 --- !u!1 &1607746257
 GameObject:
@@ -5075,7 +5090,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1748256958
 MonoBehaviour:
   m_ObjectHideFlags: 0
