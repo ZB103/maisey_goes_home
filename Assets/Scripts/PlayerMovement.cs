@@ -15,9 +15,9 @@ public class PlayerMovement : MonoBehaviour
     private float maxJumpForce; //vertical movement max force
     public float jumpForce; //vertical movement
     public bool movementOn; //player can move?
-    private bool isTouchingGround;    //player is touching the ground?
+    public bool isTouchingGround;    //player is touching the ground?
     private int countTouchingGround;    //how many grounds is the player touching?
-    private bool isJumping;         //jump is in progress?
+    public bool isJumping;         //jump is in progress?
     private float maxCoyoteTime;    //jump allowed for extra time after leaving platform
     private float coyoteTimer;   //timer used to determine whether jump is allowed at that moment
     private float apexFloat;    //amount of velocity adjustment at apex of a jump
