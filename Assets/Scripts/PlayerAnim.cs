@@ -26,17 +26,25 @@ public class PlayerAnim : MonoBehaviour
 
         //idle/run -> jumping
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space))
+        {
             anim.SetTrigger("jumpStart");
+        }
 
         //jumping -> falling
-        if (pm.isJumping && rb.velocity.y <= 0)
+        if (rb.velocity.y < 0)
             anim.SetBool("isFalling", true);
+        else
+            anim.SetBool("isFalling", false);
 
-        //falling -> landing
         if (pm.isTouchingGround)
         {
-            anim.SetBool("isFalling", false);
-            anim.ResetTrigger("jumpStart");
+            anim.SetTrigger("hitGround");
         }
+    }
+
+    private void LateUpdate()
+    {
+        anim.ResetTrigger("hitGround");
+        anim.ResetTrigger("jumpStart");
     }
 }
