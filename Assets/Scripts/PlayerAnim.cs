@@ -13,16 +13,24 @@ public class PlayerAnim : MonoBehaviour
         anim = GetComponent<Animator>();
         pm = GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody2D>();
+
+        anim.SetBool("facingRight", true);
+        anim.SetBool("isRunning", false);
     }
 
-    /* SPACE -> jump -> NEG VEL -> fall (loop) -> IS GROUNDED -> land -> D ? idle : run */
     private void Update()
     {
-        //idle/run
-        if (Input.GetKey(KeyCode.D))
-            anim.SetBool("isRunningRight", true);
+        //direction facing
+        if (Input.GetKeyDown(KeyCode.D))
+            anim.SetBool("facingRight", true);
+        if (Input.GetKeyDown(KeyCode.A))
+            anim.SetBool("facingRight", false);
+
+        //idle -> running
+        if (rb.velocity.x != 0)
+            anim.SetBool("isRunning", true);
         else
-            anim.SetBool("isRunningRight", false);
+            anim.SetBool("isRunning", false);
 
         //idle/run -> jumping
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space))
@@ -30,12 +38,13 @@ public class PlayerAnim : MonoBehaviour
             anim.SetTrigger("jumpStart");
         }
 
-        //jumping -> falling
+        //falling
         if (rb.velocity.y < 0)
             anim.SetBool("isFalling", true);
         else
             anim.SetBool("isFalling", false);
 
+        //end fall
         if (pm.isTouchingGround)
         {
             anim.SetTrigger("hitGround");
