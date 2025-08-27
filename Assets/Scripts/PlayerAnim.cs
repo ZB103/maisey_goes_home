@@ -45,7 +45,7 @@ public class PlayerAnim : MonoBehaviour
             anim.SetBool("isFalling", false);
 
         //end fall
-        if (pm.isTouchingGround)
+        if (pm.isTouchingGround || rb.velocity.y == 0)
         {
             anim.SetTrigger("hitGround");
         }

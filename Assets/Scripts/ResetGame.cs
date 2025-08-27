@@ -8,7 +8,7 @@ public class ResetGame : MonoBehaviour
     private Stack<Vector3> spawnLocation = new Stack<Vector3>();
     private Vector2 resetVelocity = new Vector2();
     public GameObject blackScreen;
-    public GameObject deathScreen;
+    //public GameObject deathScreen;
     public GameObject winScreen;
     private ReachHome winCond;
     private Health pHealth;
@@ -21,9 +21,9 @@ public class ResetGame : MonoBehaviour
         spawnLocation.Push(gameObject.transform.position);
         resetVelocity = new Vector2(0, 0);
         blackScreen = GameObject.Find("Black Panel");
-        deathScreen = GameObject.Find("Death Screen");
+        //deathScreen = GameObject.Find("Death Screen");
         winScreen = GameObject.Find("Win Screen");
-        deathScreen.SetActive(false);
+        //deathScreen.SetActive(false);
         winScreen.SetActive(false);
         winCond = GameObject.Find("Home").GetComponent<ReachHome>();
         pHealth = gameObject.GetComponent<Health>();
@@ -33,7 +33,7 @@ public class ResetGame : MonoBehaviour
 
     public void ResetPlayer()
     {
-        deathScreen.SetActive(false);
+        //deathScreen.SetActive(false);
         winScreen.SetActive(false);
         StartCoroutine(FadeFromBlack());
 
@@ -66,11 +66,11 @@ public class ResetGame : MonoBehaviour
         }
     }
 
-    
 
     //fade out
     public IEnumerator FadeToBlack(string condition = "", float fadeSpeed = 2f)
     {
+        print("FadeToBlack");
         m.movementOn = false;
         Color objectColor = blackScreen.GetComponent<Image>().color;
         float fadeAmount;
@@ -85,14 +85,25 @@ public class ResetGame : MonoBehaviour
             yield return null;
         }
 
-        //if player has used all lives, go to death screen
+        //if player has reached the end, show win screen
         //otherwise spawn at last spawn point
-        if (condition.Equals("loss"))
-            deathScreen.SetActive(true);
-        else if (condition.Equals("win"))
+        if (condition.Equals("win"))
+        {
             winScreen.SetActive(true);
+        }
         else
+        {
+            //reset spawn point to beginning of level
+            if (pHealth.strikesLeft <= 0)
+            {
+                while (spawnLocation.Count > 1)
+                    spawnLocation.Pop();
+                pHealth.strikesLeft = pHealth.numLives;
+            }
+
+            //begin transition to spawn point
             StartCoroutine(FadeFromBlack());
+        }
         yield break;
     }
 

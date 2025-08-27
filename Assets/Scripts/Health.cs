@@ -19,7 +19,7 @@ public class Health : MonoBehaviour
         playerHealth = startHealth;
         healthBar = GameObject.Find("HealthBar").GetComponent<HealthBar>();
         resetGame = GetComponent<ResetGame>();
-        numLives = 3;
+        numLives = 4;
         strikesLeft = numLives;
 
         UpdateUI();
