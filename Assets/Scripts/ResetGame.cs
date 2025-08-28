@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ResetGame : MonoBehaviour
 {
     private Stack<Vector3> spawnLocation = new Stack<Vector3>();
-    private Vector2 resetVelocity = new Vector2();
+    public Vector2 resetVelocity = new Vector2();
     public GameObject blackScreen;
     //public GameObject deathScreen;
     public GameObject winScreen;
+    public GameObject winScreenText;
     private ReachHome winCond;
     private Health pHealth;
     private Stress pStress;
@@ -23,6 +25,7 @@ public class ResetGame : MonoBehaviour
         blackScreen = GameObject.Find("Black Panel");
         //deathScreen = GameObject.Find("Death Screen");
         winScreen = GameObject.Find("Win Screen");
+        winScreenText = GameObject.Find("Win Screen Text");
         //deathScreen.SetActive(false);
         winScreen.SetActive(false);
         winCond = GameObject.Find("Home").GetComponent<ReachHome>();
@@ -70,29 +73,43 @@ public class ResetGame : MonoBehaviour
     //fade out
     public IEnumerator FadeToBlack(string condition = "", float fadeSpeed = 2f)
     {
-        print("FadeToBlack");
-        m.movementOn = false;
-        Color objectColor = blackScreen.GetComponent<Image>().color;
         float fadeAmount;
-
-        //fade out
-        while (blackScreen.GetComponent<Image>().color.a < 1)
-        {
-            fadeAmount = objectColor.a + (fadeSpeed * Time.deltaTime);
-
-            objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
-            blackScreen.GetComponent<Image>().color = objectColor;
-            yield return null;
-        }
+        Color objectColor;
+        m.movementOn = false;
 
         //if player has reached the end, show win screen
         //otherwise spawn at last spawn point
         if (condition.Equals("win"))
         {
             winScreen.SetActive(true);
+            objectColor = winScreenText.GetComponent<TextMeshProUGUI>().color;
+            //fade word in
+            while (objectColor.a < 1)
+            {
+                fadeAmount = objectColor.a + (fadeSpeed * Time.deltaTime);
+
+                objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+                winScreenText.GetComponent<TextMeshProUGUI>().color = objectColor;
+                yield return null;
+            }
+            //winScreen.SetActive(true);
+            StartCoroutine(FadeToMenu());
         }
         else
         {
+            //fade to black to respawn
+            objectColor = blackScreen.GetComponent<Image>().color;
+
+            //fade out
+            while (blackScreen.GetComponent<Image>().color.a < 1)
+            {
+                fadeAmount = objectColor.a + (fadeSpeed * Time.deltaTime);
+
+                objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+                blackScreen.GetComponent<Image>().color = objectColor;
+                yield return null;
+            }
+
             //reset spawn point to beginning of level
             if (pHealth.strikesLeft <= 0)
             {
@@ -134,5 +151,17 @@ public class ResetGame : MonoBehaviour
         }
         m.movementOn = true;
         yield break;
+    }
+
+    //fade to main menu upon winning game
+    public IEnumerator FadeToMenu(int fadeSpeed = 2)
+    {
+        //when implemented it will go to main menu scene
+        //gradually fading in so "maisey goes " is visible in front of "home."
+        
+        yield return new WaitForSeconds(2);
+        winScreenText.GetComponent<TextMeshProUGUI>().color = new Color(0f, 0f, 0f, 0f);
+        ResetPlayer();
+        StartCoroutine(FadeFromBlack());
     }
 }

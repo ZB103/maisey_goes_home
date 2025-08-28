@@ -57,6 +57,6 @@ public class ReachHome : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
         yield return new WaitForSeconds(.5f);
-        StartCoroutine(resetGame.FadeToBlack("win", .5f));
+        StartCoroutine(resetGame.FadeToBlack("win"));
     }
 }
