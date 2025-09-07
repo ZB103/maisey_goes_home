@@ -21,15 +21,15 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 1550610739, guid: ecd2ba82a57f4c24eab1ebc0984da70b, type: 3}
+      value: {fileID: 739112487, guid: ecd2ba82a57f4c24eab1ebc0984da70b, type: 3}
     - time: 0.13333334
-      value: {fileID: -184943765, guid: ecd2ba82a57f4c24eab1ebc0984da70b, type: 3}
+      value: {fileID: -1687695762, guid: ecd2ba82a57f4c24eab1ebc0984da70b, type: 3}
     - time: 0.26666668
-      value: {fileID: 104382467, guid: ecd2ba82a57f4c24eab1ebc0984da70b, type: 3}
+      value: {fileID: 2890472, guid: ecd2ba82a57f4c24eab1ebc0984da70b, type: 3}
     - time: 0.4
-      value: {fileID: 765399589, guid: ecd2ba82a57f4c24eab1ebc0984da70b, type: 3}
+      value: {fileID: -1732892887, guid: ecd2ba82a57f4c24eab1ebc0984da70b, type: 3}
     - time: 0.53333336
-      value: {fileID: 765399589, guid: ecd2ba82a57f4c24eab1ebc0984da70b, type: 3}
+      value: {fileID: -1732892887, guid: ecd2ba82a57f4c24eab1ebc0984da70b, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -52,11 +52,11 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 1550610739, guid: ecd2ba82a57f4c24eab1ebc0984da70b, type: 3}
-    - {fileID: -184943765, guid: ecd2ba82a57f4c24eab1ebc0984da70b, type: 3}
-    - {fileID: 104382467, guid: ecd2ba82a57f4c24eab1ebc0984da70b, type: 3}
-    - {fileID: 765399589, guid: ecd2ba82a57f4c24eab1ebc0984da70b, type: 3}
-    - {fileID: 765399589, guid: ecd2ba82a57f4c24eab1ebc0984da70b, type: 3}
+    - {fileID: 739112487, guid: ecd2ba82a57f4c24eab1ebc0984da70b, type: 3}
+    - {fileID: -1687695762, guid: ecd2ba82a57f4c24eab1ebc0984da70b, type: 3}
+    - {fileID: 2890472, guid: ecd2ba82a57f4c24eab1ebc0984da70b, type: 3}
+    - {fileID: -1732892887, guid: ecd2ba82a57f4c24eab1ebc0984da70b, type: 3}
+    - {fileID: -1732892887, guid: ecd2ba82a57f4c24eab1ebc0984da70b, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
