@@ -16,6 +16,7 @@ public class PlayerAnim : MonoBehaviour
 
         anim.SetBool("facingRight", true);
         anim.SetBool("isRunning", false);
+        anim.SetFloat("runSpeed", pm.moveSpeed/pm.maxMoveSpeed);
     }
 
     private void Update()
@@ -55,5 +56,6 @@ public class PlayerAnim : MonoBehaviour
     {
         anim.ResetTrigger("hitGround");
         anim.ResetTrigger("jumpStart");
+        anim.SetFloat("runSpeed", pm.moveSpeed / pm.maxMoveSpeed);
     }
 }

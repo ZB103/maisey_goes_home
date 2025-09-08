@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Stress pStress;
-    private float maxMoveSpeed; //horizontal movement max speed
+    public float maxMoveSpeed; //horizontal movement max speed
     public float moveSpeed; //horizontal movement
     private float acc;  //horizontal acceleration
     private float dec;  //horizontal deceleration
