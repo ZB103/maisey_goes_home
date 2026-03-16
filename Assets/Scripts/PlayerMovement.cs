@@ -28,11 +28,11 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         pStress = GetComponent<Stress>();
-        maxMoveSpeed = 15;
+        maxMoveSpeed = 10;
         moveSpeed = maxMoveSpeed;
         acc = 2f;
         dec = 2.5f;
-        maxJumpForce = 30;
+        maxJumpForce = 16;
         jumpForce = maxJumpForce;
         isTouchingGround = false;
         countTouchingGround = 0;
