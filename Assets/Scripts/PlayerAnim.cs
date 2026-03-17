@@ -28,15 +28,22 @@ public class PlayerAnim : MonoBehaviour
             anim.SetBool("facingRight", false);
 
         //idle -> running
-        if (rb.velocity.x != 0)
-            anim.SetBool("isRunning", true);
-        else
+        if (rb.velocity.x < 0.1 && rb.velocity.x > -0.1)
             anim.SetBool("isRunning", false);
+        else
+            anim.SetBool("isRunning", true);
 
         //idle/run -> jumping
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space))
+        if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space)) && pm.isTouchingGround)
         {
             anim.SetTrigger("jumpStart");
+        }
+
+        //end fall
+        if (pm.isTouchingGround || rb.velocity.y == 0)
+        {
+            //anim.ResetTrigger("jumpStart");
+            anim.SetTrigger("hitGround");
         }
 
         //falling
@@ -44,12 +51,6 @@ public class PlayerAnim : MonoBehaviour
             anim.SetBool("isFalling", true);
         else
             anim.SetBool("isFalling", false);
-
-        //end fall
-        if (pm.isTouchingGround || rb.velocity.y == 0)
-        {
-            anim.SetTrigger("hitGround");
-        }
     }
 
     private void LateUpdate()
