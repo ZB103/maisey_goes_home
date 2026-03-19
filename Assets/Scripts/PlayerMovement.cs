@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
         moveSpeed = maxMoveSpeed;
         acc = 2f;
         dec = 2.5f;
-        maxJumpForce = 13;
+        maxJumpForce = 15;
         jumpForce = maxJumpForce;
         isTouchingGround = false;
         countTouchingGround = 0;
@@ -106,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
             if ((isTouchingGround || coyoteTimer > 0f) && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)))
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                isTouchingGround = false;
+                //isTouchingGround = false;
                 isJumping = true;
             }
 
@@ -155,25 +155,21 @@ public class PlayerMovement : MonoBehaviour
             moveSpeed = maxMoveSpeed;
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        
-        if (collision.gameObject.tag == "Platform")
-        {
-            countTouchingGround--;
-            isTouchingGround = countTouchingGround > 0 ? true : false;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        
         //land on platform
         if (collision.gameObject.tag == "Platform")
         {
-            countTouchingGround++;
-            isTouchingGround = countTouchingGround > 0 ? true : false;
+            isTouchingGround = true;
             isJumping = false;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Platform")
+        {
+            isTouchingGround = false;
         }
     }
 }
