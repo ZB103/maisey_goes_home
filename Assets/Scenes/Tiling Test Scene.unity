@@ -186,6 +186,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5663107205127091001, guid: a8d992b9f5f044f4ab68da274ab5a8c3, type: 3}
+      propertyPath: jumpableGround.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 7817391217124433693, guid: a8d992b9f5f044f4ab68da274ab5a8c3, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -780,7 +788,7 @@ GameObject:
   - component: {fileID: 549117021}
   - component: {fileID: 549117020}
   - component: {fileID: 549117019}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Physics Tile
   m_TagString: Platform
   m_Icon: {fileID: 0}
@@ -811,7 +819,7 @@ TilemapCollider2D:
   m_GameObject: {fileID: 549117017}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 24eb351b988c2064581b422a4ee80157, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2056,7 +2064,7 @@ GameObject:
   - component: {fileID: 1064562259}
   - component: {fileID: 1064562261}
   - component: {fileID: 1064562260}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Midground
   m_TagString: Platform
   m_Icon: {fileID: 0}

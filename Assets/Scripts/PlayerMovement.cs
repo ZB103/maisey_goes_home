@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Stress pStress;
+    public BoxCollider2D pCollider;
     public float maxMoveSpeed; //horizontal movement max speed
     public float moveSpeed; //horizontal movement
     private float acc;  //horizontal acceleration
@@ -16,18 +18,18 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce; //vertical movement
     public bool movementOn; //player can move?
     public bool isTouchingGround;    //player is touching the ground?
-    private int countTouchingGround;    //how many grounds is the player touching?
     public bool isJumping;         //jump is in progress?
     private float maxCoyoteTime;    //jump allowed for extra time after leaving platform
     private float coyoteTimer;   //timer used to determine whether jump is allowed at that moment
-    private float apexFloat;    //amount of velocity adjustment at apex of a jump
     private float descentMultiplier;  //amount of velocity adjustment when falling
+    [SerializeField] private LayerMask jumpableGround;  //layer of ground able to be jumped from
 
     // Start is called before the first frame update
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         pStress = GetComponent<Stress>();
+        pCollider = GetComponent<BoxCollider2D>();
         maxMoveSpeed = 5;
         moveSpeed = maxMoveSpeed;
         acc = 2f;
@@ -35,17 +37,14 @@ public class PlayerMovement : MonoBehaviour
         maxJumpForce = 15;
         jumpForce = maxJumpForce;
         isTouchingGround = false;
-        countTouchingGround = 0;
         isJumping = false;
         Physics2D.gravity = new Vector2(0, -70f);
         movementOn = true;
         maxCoyoteTime = 0.1f;
-        apexFloat = .8f;
         descentMultiplier = 0.1f;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         if (movementOn)
         {
@@ -89,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
             else if (rb.velocity.x < 0)
             {
                 rb.velocity = new Vector2(rb.velocity.x + dec, rb.velocity.y);
-                if(rb.velocity.x > -dec)
+                if (rb.velocity.x > -dec)
                 {
                     rb.velocity = new Vector2(0, rb.velocity.y);
                 }
@@ -97,16 +96,15 @@ public class PlayerMovement : MonoBehaviour
 
 
             //start coyote buffer countdown
-            if (isTouchingGround)
+            if (IsGrounded())
                 coyoteTimer = maxCoyoteTime;
             //decrement coyote buffer
             coyoteTimer -= Time.deltaTime;
 
             //execute jump if within buffer and coyote allowance
-            if ((isTouchingGround || coyoteTimer > 0f) && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)))
+            if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) && (IsGrounded() || coyoteTimer > 0f))
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                //isTouchingGround = false;
                 isJumping = true;
             }
 
@@ -116,10 +114,14 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.4f);
             }
 
-            //simulate reduced gravity at top of jump
-            if (rb.velocity.y <= 0.1f && rb.velocity.y >= -0.1f && isJumping)
+            //reduced gravity at top of jump (apex float)
+            if (!(IsGrounded()) && Mathf.Abs(rb.velocity.y)<= 0.5f)
             {
-                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y - apexFloat);
+                rb.gravityScale = 0.1f;
+            }
+            else if (!(IsGrounded()))
+            {
+                rb.gravityScale = 1f;
             }
 
             //fall quickly
@@ -130,15 +132,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void PrintAll()
+    private bool IsGrounded()
     {
-        print("movementOn " + movementOn +
-            "\nmoveSpeed " + moveSpeed + 
-            "\nisTouchingGround " + isTouchingGround +
-            "\ncountTouchingGround " + countTouchingGround + 
-            "\nisJumping " + isJumping +
-            "\njumpForce " + jumpForce
-            );
+        return Physics2D.BoxCast(pCollider.bounds.center, pCollider.bounds.size, 0f, Vector2.down, 0.5f, jumpableGround);
     }
 
     //change move/jump stats based on stress levels
@@ -153,23 +149,5 @@ public class PlayerMovement : MonoBehaviour
             moveSpeed = maxMoveSpeed - (pStress.playerStress / 15);
         else
             moveSpeed = maxMoveSpeed;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        //land on platform
-        if (collision.gameObject.tag == "Platform")
-        {
-            isTouchingGround = true;
-            isJumping = false;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Platform")
-        {
-            isTouchingGround = false;
-        }
     }
 }
