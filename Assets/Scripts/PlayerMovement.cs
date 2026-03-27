@@ -19,9 +19,10 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce; //vertical movement
     public bool movementOn; //player can move?
     public bool isTouchingGround;    //player is touching the ground?
-    public bool isJumping;         //jump is in progress?
     private float maxCoyoteTime;    //jump allowed for extra time after leaving platform
     private float coyoteTimer;   //timer used to determine whether jump is allowed at that moment
+    private float maxJumpBufferTime;    //jump is allowed before hitting the ground
+    private float jumpBufferTimer;      //timer used to determine whether jump allowed at that moment
     private float descentMultiplier;  //amount of velocity adjustment when falling
     private bool right;
     private bool left;
@@ -31,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Time.timeScale = .6f;   //rm
+        //Time.timeScale = .5f;   //rm
         rb = GetComponent<Rigidbody2D>();
         pStress = GetComponent<Stress>();
         pCollider = GetComponent<BoxCollider2D>();
@@ -39,13 +40,13 @@ public class PlayerMovement : MonoBehaviour
         moveSpeed = maxMoveSpeed;
         acc = 2f;
         dec = 2.5f;
-        maxJumpForce = 25;  //15
+        maxJumpForce = 15;  //15
         jumpForce = maxJumpForce;
         isTouchingGround = false;
-        isJumping = false;
         Physics2D.gravity = new Vector2(0, -70f);
         movementOn = true;
         maxCoyoteTime = 0.15f;
+        maxJumpBufferTime = 0.5f;
         descentMultiplier = 0.1f;
         right = false;
         left = false;
@@ -63,12 +64,19 @@ public class PlayerMovement : MonoBehaviour
             //left movement
             if (Input.GetKey(KeyCode.A) && rb.velocity.x > -moveSpeed) { left = true; }
             else { left = false; }
+
+            //coyote buffer countdown
+            if (IsGrounded()) { coyoteTimer = maxCoyoteTime; }
+            else { coyoteTimer -= Time.deltaTime; }
+
+            //start jump buffer countdown
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
+            { jumpBufferTimer = maxJumpBufferTime; }
+            else { jumpBufferTimer -= Time.deltaTime; }
+            
             //jump
-            if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
-                && ((!isJumping && (IsGrounded() || coyoteTimer > 0f)) || (isJumping && IsAlmostGrounded())))
-                { jump = true; isJumping = true; print("jump sent"); }
-            else { jump = false; }
-            if (!jump && IsGrounded()) { isJumping = false; }
+            if (jumpBufferTimer > 0f && coyoteTimer > 0f ) { jump = true; }
+            if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.W)) { coyoteTimer = 0f; }
         }
     }
 
@@ -121,19 +129,14 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        //start coyote buffer countdown
-        if (IsGrounded())
-        {
-            coyoteTimer = maxCoyoteTime;
-        }
-        //decrement coyote buffer
-        coyoteTimer -= Time.deltaTime;
+        
 
         //execute jump if within jump buffer and coyote allowance
         if (jump)
         {
-            print("jump accepted");
+            jump = false;
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            jumpBufferTimer = 0f;
         }
 
         //release jump early
