@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -22,11 +23,15 @@ public class PlayerMovement : MonoBehaviour
     private float maxCoyoteTime;    //jump allowed for extra time after leaving platform
     private float coyoteTimer;   //timer used to determine whether jump is allowed at that moment
     private float descentMultiplier;  //amount of velocity adjustment when falling
+    private bool right;
+    private bool left;
+    private bool jump;
     [SerializeField] private LayerMask jumpableGround;  //layer of ground able to be jumped from
 
     // Start is called before the first frame update
     void Awake()
     {
+        Time.timeScale = .6f;   //rm
         rb = GetComponent<Rigidbody2D>();
         pStress = GetComponent<Stress>();
         pCollider = GetComponent<BoxCollider2D>();
@@ -34,107 +39,136 @@ public class PlayerMovement : MonoBehaviour
         moveSpeed = maxMoveSpeed;
         acc = 2f;
         dec = 2.5f;
-        maxJumpForce = 15;
+        maxJumpForce = 25;  //15
         jumpForce = maxJumpForce;
         isTouchingGround = false;
         isJumping = false;
         Physics2D.gravity = new Vector2(0, -70f);
         movementOn = true;
-        maxCoyoteTime = 0.1f;
+        maxCoyoteTime = 0.15f;
         descentMultiplier = 0.1f;
+        right = false;
+        left = false;
+        jump = false;
+    }
+
+    private void Update()
+    {
+        //key presses checked for in update for consistency
+        if (movementOn)
+        {
+            //right movement
+            if (Input.GetKey(KeyCode.D) && rb.velocity.x < moveSpeed) { right = true; }
+            else { right = false; }
+            //left movement
+            if (Input.GetKey(KeyCode.A) && rb.velocity.x > -moveSpeed) { left = true; }
+            else { left = false; }
+            //jump
+            if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
+                && ((!isJumping && (IsGrounded() || coyoteTimer > 0f)) || (isJumping && IsAlmostGrounded())))
+                { jump = true; isJumping = true; print("jump sent"); }
+            else { jump = false; }
+            if (!jump && IsGrounded()) { isJumping = false; }
+        }
     }
 
     private void FixedUpdate()
     {
-        if (movementOn)
+        //right movement
+        if (right)
         {
-            //right movement
-            if (Input.GetKey(KeyCode.D) && rb.velocity.x < moveSpeed)
+            //same direction
+            if (rb.velocity.x >= 0)
             {
-                //same direction
-                if (rb.velocity.x >= 0)
-                {
-                    rb.velocity = new Vector2(rb.velocity.x + acc, rb.velocity.y);
-                }
-                //turn around
-                else
-                {
-                    rb.velocity = new Vector2(rb.velocity.x * -0.2f, rb.velocity.y);
-                }
+                rb.velocity = new Vector2(rb.velocity.x + acc, rb.velocity.y);
             }
-            else if (rb.velocity.x > 0)
+            //turn around
+            else
             {
-                rb.velocity = new Vector2(rb.velocity.x - dec, rb.velocity.y);
-                if (rb.velocity.x < dec)
-                {
-                    rb.velocity = new Vector2(0, rb.velocity.y);
-                }
+                rb.velocity = new Vector2(rb.velocity.x * -0.2f, rb.velocity.y);
             }
+        }
+        else if (rb.velocity.x > 0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x - dec, rb.velocity.y);
+            if (rb.velocity.x < dec)
+            {
+                rb.velocity = new Vector2(0, rb.velocity.y);
+            }
+        }
 
-            //left movement
-            if (Input.GetKey(KeyCode.A) && rb.velocity.x > -moveSpeed)
+        //left movement
+        if (left)
+        {
+            //same direction
+            if (rb.velocity.x <= 0)
             {
-                //same direction
-                if (rb.velocity.x <= 0)
-                {
-                    rb.velocity = new Vector2(rb.velocity.x - acc, rb.velocity.y);
-                }
-                //turn around
-                else
-                {
-                    rb.velocity = new Vector2(rb.velocity.x * -0.2f, rb.velocity.y);
-                }
+                rb.velocity = new Vector2(rb.velocity.x - acc, rb.velocity.y);
             }
-            else if (rb.velocity.x < 0)
+            //turn around
+            else
             {
-                rb.velocity = new Vector2(rb.velocity.x + dec, rb.velocity.y);
-                if (rb.velocity.x > -dec)
-                {
-                    rb.velocity = new Vector2(0, rb.velocity.y);
-                }
+                rb.velocity = new Vector2(rb.velocity.x * -0.2f, rb.velocity.y);
             }
+        }
+        else if (rb.velocity.x < 0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x + dec, rb.velocity.y);
+            if (rb.velocity.x > -dec)
+            {
+                rb.velocity = new Vector2(0, rb.velocity.y);
+            }
+        }
 
 
-            //start coyote buffer countdown
-            if (IsGrounded())
-                coyoteTimer = maxCoyoteTime;
-            //decrement coyote buffer
-            coyoteTimer -= Time.deltaTime;
+        //start coyote buffer countdown
+        if (IsGrounded())
+        {
+            coyoteTimer = maxCoyoteTime;
+        }
+        //decrement coyote buffer
+        coyoteTimer -= Time.deltaTime;
 
-            //execute jump if within buffer and coyote allowance
-            if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) && (IsGrounded() || coyoteTimer > 0f))
-            {
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                isJumping = true;
-            }
+        //execute jump if within jump buffer and coyote allowance
+        if (jump)
+        {
+            print("jump accepted");
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
 
-            //release jump early
-            if (rb.velocity.y > 0f && (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.W)))
-            {
-                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.4f);
-            }
+        //release jump early
+        /*if (rb.velocity.y > 0f && (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.W)))
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.4f);
+        }*/
 
-            //reduced gravity at top of jump (apex float)
-            if (!(IsGrounded()) && Mathf.Abs(rb.velocity.y)<= 0.5f)
-            {
-                rb.gravityScale = 0.1f;
-            }
-            else if (!(IsGrounded()))
-            {
-                rb.gravityScale = 1f;
-            }
+        //reduced gravity at top of jump (apex float)
+        if (!IsGrounded() && Mathf.Abs(rb.velocity.y)<= 0.5f)
+        {
+            rb.gravityScale = 0.3f;
+        }
+        else if (!IsGrounded())
+        {
+            rb.gravityScale = 1f;
+        }
 
-            //fall quickly
-            if (rb.velocity.y < -1f)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y - descentMultiplier);
-            }
+        //fall quickly
+        if (rb.velocity.y < -1f)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y - descentMultiplier);
         }
     }
 
+    //determines whether the player is touching the ground
     private bool IsGrounded()
     {
         return Physics2D.BoxCast(pCollider.bounds.center, pCollider.bounds.size, 0f, Vector2.down, 0.5f, jumpableGround);
+    }
+
+    //determines whether the player is just above the ground, for purposes of queueing a jump
+    private bool IsAlmostGrounded()
+    {
+        return Physics2D.BoxCast(pCollider.bounds.center, pCollider.bounds.size, 0f, Vector2.down, 0.85f, jumpableGround);
     }
 
     //change move/jump stats based on stress levels
