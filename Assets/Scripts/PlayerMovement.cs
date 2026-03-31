@@ -16,13 +16,13 @@ public class PlayerMovement : MonoBehaviour
     private float acc;  //horizontal acceleration
     private float dec;  //horizontal deceleration
     private float maxJumpForce; //vertical movement max force
-    public float jumpForce; //vertical movement
+    private float jumpForce; //vertical movement
     public bool movementOn; //player can move?
-    public bool isTouchingGround;    //player is touching the ground?
     private float maxCoyoteTime;    //jump allowed for extra time after leaving platform
-    private float coyoteTimer;   //timer used to determine whether jump is allowed at that moment
+    public float coyoteTimer;   //timer used to determine whether jump is allowed at that moment
     private float maxJumpBufferTime;    //jump is allowed before hitting the ground
-    private float jumpBufferTimer;      //timer used to determine whether jump allowed at that moment
+    public float jumpBufferTimer;      //timer used to determine whether jump allowed at that moment
+    public bool jumpStart;      //used to trigger jump animation
     private float descentMultiplier;  //amount of velocity adjustment when falling
     private bool right;
     private bool left;
@@ -32,7 +32,6 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        //Time.timeScale = .5f;   //rm
         rb = GetComponent<Rigidbody2D>();
         pStress = GetComponent<Stress>();
         pCollider = GetComponent<BoxCollider2D>();
@@ -40,13 +39,13 @@ public class PlayerMovement : MonoBehaviour
         moveSpeed = maxMoveSpeed;
         acc = 2f;
         dec = 2.5f;
-        maxJumpForce = 15;  //15
+        maxJumpForce = 15;
         jumpForce = maxJumpForce;
-        isTouchingGround = false;
         Physics2D.gravity = new Vector2(0, -70f);
         movementOn = true;
         maxCoyoteTime = 0.15f;
         maxJumpBufferTime = 0.5f;
+        jumpStart = false;
         descentMultiplier = 0.1f;
         right = false;
         left = false;
@@ -75,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
             else { jumpBufferTimer -= Time.deltaTime; }
             
             //jump
-            if (jumpBufferTimer > 0f && coyoteTimer > 0f ) { jump = true; }
+            if (jumpBufferTimer > 0f && coyoteTimer > 0f ) { jumpStart = true; jump = true; }
             if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.W)) { coyoteTimer = 0f; }
         }
     }
@@ -128,9 +127,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-
-        
-
         //execute jump if within jump buffer and coyote allowance
         if (jump)
         {
@@ -163,13 +159,13 @@ public class PlayerMovement : MonoBehaviour
     }
 
     //determines whether the player is touching the ground
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
         return Physics2D.BoxCast(pCollider.bounds.center, pCollider.bounds.size, 0f, Vector2.down, 0.5f, jumpableGround);
     }
 
     //determines whether the player is just above the ground, for purposes of queueing a jump
-    private bool IsAlmostGrounded()
+    public bool IsAlmostGrounded()
     {
         return Physics2D.BoxCast(pCollider.bounds.center, pCollider.bounds.size, 0f, Vector2.down, 0.85f, jumpableGround);
     }

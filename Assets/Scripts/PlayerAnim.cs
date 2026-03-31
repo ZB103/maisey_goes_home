@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerAnim : MonoBehaviour
@@ -28,26 +29,26 @@ public class PlayerAnim : MonoBehaviour
             anim.SetBool("facingRight", false);
 
         //idle -> running
-        if (rb.velocity.x < 0.1 && rb.velocity.x > -0.1)
+        if (Mathf.Abs(rb.velocity.x) < 0.1)
             anim.SetBool("isRunning", false);
         else
             anim.SetBool("isRunning", true);
 
         //idle/run -> jumping
-        if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space)) && pm.isTouchingGround)
+        if (pm.jumpStart)
         {
+            pm.jumpStart = false;
             anim.SetTrigger("jumpStart");
         }
 
         //end fall
-        if (pm.isTouchingGround || rb.velocity.y == 0)
+        if (anim.GetBool("isFalling") && pm.IsGrounded())
         {
-            //anim.ResetTrigger("jumpStart");
             anim.SetTrigger("hitGround");
         }
 
         //falling
-        if (rb.velocity.y < 0)
+        if (rb.velocity.y < -.2f)
             anim.SetBool("isFalling", true);
         else
             anim.SetBool("isFalling", false);
