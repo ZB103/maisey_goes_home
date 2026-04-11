@@ -78,5 +78,8 @@ crashlytics-build.properties
 *.clip
 **/[Cc]lip[Ff]iles
 
+# Audio files
+*.aup3
+
 # Test projects
 **/[Zz][Tt]est[Pp]rojects
