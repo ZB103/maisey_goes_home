@@ -80,6 +80,7 @@ crashlytics-build.properties
 
 # Audio files
 *.aup3
+*.aup3*
 
 # Test projects
 **/[Zz][Tt]est[Pp]rojects
