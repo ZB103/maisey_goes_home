@@ -26,7 +26,7 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: b5e90200101c8454a8fa8dc49c0681d2, type: 2}
   m_Tag: 
-  m_SpeedParameter: runSpeed
+  m_SpeedParameter: animSpeed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -90,7 +90,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 4
     m_ConditionEvent: runSpeed
-    m_EventTreshold: 0.68
+    m_EventTreshold: 0.5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1969894340394730836}
   m_Solo: 0
@@ -193,7 +193,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 4
     m_ConditionEvent: runSpeed
-    m_EventTreshold: 0.68
+    m_EventTreshold: 0.5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1922731735917189098}
   m_Solo: 0
@@ -248,7 +248,7 @@ AnimatorState:
   - {fileID: -623686961302678254}
   - {fileID: 3864169488115510965}
   m_StateMachineBehaviours:
-  - {fileID: 6321153772691553454}
+  - {fileID: 1809864786734464762}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -327,7 +327,8 @@ AnimatorState:
   - {fileID: -6757292908313862792}
   - {fileID: 4958113488270360658}
   - {fileID: 6180646244929093921}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: -1964002457256301051}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -431,7 +432,8 @@ AnimatorState:
   - {fileID: 6305765198084605876}
   - {fileID: -3538487175839807155}
   - {fileID: -3855505019971506568}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 5182435674389088819}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -544,7 +546,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 3
     m_ConditionEvent: runSpeed
-    m_EventTreshold: 0.68
+    m_EventTreshold: 0.4
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8682257119804287155}
   m_Solo: 0
@@ -597,7 +599,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 3
     m_ConditionEvent: runSpeed
-    m_EventTreshold: 0.68
+    m_EventTreshold: 0.4
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7498968229493489664}
   m_Solo: 0
@@ -722,7 +724,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 3
     m_ConditionEvent: runSpeed
-    m_EventTreshold: 0.68
+    m_EventTreshold: 0.4
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8682257119804287155}
   m_Solo: 0
@@ -764,10 +766,24 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 21ec5f66e5ab94b46b4fadb18f369adc, type: 2}
   m_Tag: 
-  m_SpeedParameter: runSpeed
+  m_SpeedParameter: animSpeed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!114 &-1964002457256301051
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5764ab023371f814e8e20f30ad550da5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound: 3
+  volume: 0.2
 --- !u!1101 &-623686961302678254
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -838,6 +854,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
+  - m_Name: animSpeed
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -864,7 +886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sound: 2
-  volume: 1
+  volume: 0.4
 --- !u!1101 &923208061383193712
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -990,6 +1012,20 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!114 &1809864786734464762
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5764ab023371f814e8e20f30ad550da5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound: 3
+  volume: 0.2
 --- !u!1102 &1922731735917189098
 AnimatorState:
   serializedVersion: 6
@@ -1017,7 +1053,7 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 6efdfca4a3005794f8f1063ecac4c36e, type: 2}
   m_Tag: 
-  m_SpeedParameter: runSpeed
+  m_SpeedParameter: animSpeed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -1031,7 +1067,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 4
     m_ConditionEvent: runSpeed
-    m_EventTreshold: 0.68
+    m_EventTreshold: 0.5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1922731735917189098}
   m_Solo: 0
@@ -1161,7 +1197,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 3
     m_ConditionEvent: runSpeed
-    m_EventTreshold: 0.68
+    m_EventTreshold: 0.4
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7498968229493489664}
   m_Solo: 0
@@ -1300,7 +1336,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 4
     m_ConditionEvent: runSpeed
-    m_EventTreshold: 0.68
+    m_EventTreshold: 0.5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1969894340394730836}
   m_Solo: 0
@@ -1315,6 +1351,20 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!114 &5182435674389088819
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cd6b793eb7cb4747bd54b22174e3a94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound: 2
+  volume: 0.5
 --- !u!1101 &5659650970188207223
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -1328,7 +1378,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 4
     m_ConditionEvent: runSpeed
-    m_EventTreshold: 0.68
+    m_EventTreshold: 0.5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1922731735917189098}
   m_Solo: 0
@@ -1418,20 +1468,6 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
---- !u!114 &6321153772691553454
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5764ab023371f814e8e20f30ad550da5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sound: 3
-  volume: 1
 --- !u!1101 &6395050748813551161
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -1495,7 +1531,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 4
     m_ConditionEvent: runSpeed
-    m_EventTreshold: 0.68
+    m_EventTreshold: 0.5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1969894340394730836}
   m_Solo: 0
@@ -1617,7 +1653,7 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: b13183efd8632084eb3e7ba45ee17eb9, type: 2}
   m_Tag: 
-  m_SpeedParameter: runSpeed
+  m_SpeedParameter: animSpeed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -1684,7 +1720,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 3
     m_ConditionEvent: runSpeed
-    m_EventTreshold: 0.68
+    m_EventTreshold: 0.4
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7498968229493489664}
   m_Solo: 0
@@ -1737,7 +1773,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 3
     m_ConditionEvent: runSpeed
-    m_EventTreshold: 0.68
+    m_EventTreshold: 0.4
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8682257119804287155}
   m_Solo: 0

@@ -17,7 +17,8 @@ public class PlayerAnim : MonoBehaviour
 
         anim.SetBool("facingRight", true);
         anim.SetBool("isRunning", false);
-        anim.SetFloat("runSpeed", pm.moveSpeed/pm.maxMoveSpeed);
+        anim.SetFloat("runSpeed", pm.moveSpeed/pm.maxMoveSpeed);    //% speed of player movement
+        anim.SetFloat("animSpeed", 1);      //speed animation plays at
     }
 
     private void Update()
@@ -29,15 +30,16 @@ public class PlayerAnim : MonoBehaviour
             anim.SetBool("facingRight", false);
 
         //idle -> running
-        if (Mathf.Abs(rb.velocity.x) < 0.1)
-            anim.SetBool("isRunning", false);
-        else
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
             anim.SetBool("isRunning", true);
+        else
+            anim.SetBool("isRunning", false);
 
         //idle/run -> jumping
         if (pm.jumpStart)
         {
             pm.jumpStart = false;
+            anim.ResetTrigger("hitGround");
             anim.SetTrigger("jumpStart");
         }
 
@@ -59,5 +61,14 @@ public class PlayerAnim : MonoBehaviour
         anim.ResetTrigger("hitGround");
         anim.ResetTrigger("jumpStart");
         anim.SetFloat("runSpeed", pm.moveSpeed / pm.maxMoveSpeed);
+        
+        //runSpeed changes animation speed
+        //.4- -> hobble
+        //.5-.6 -> run slower
+        //.7+ -> run normal
+        if ((anim.GetFloat("runSpeed") >= .5f && anim.GetFloat("runSpeed") <= .6f)
+            || anim.GetFloat("runSpeed") <= .1f) { anim.SetFloat("animSpeed", .7f); }
+        else { anim.SetFloat("animSpeed", 1); }
+
     }
 }

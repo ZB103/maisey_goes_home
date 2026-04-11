@@ -135,12 +135,6 @@ public class PlayerMovement : MonoBehaviour
             jumpBufferTimer = 0f;
         }
 
-        //release jump early
-        /*if (rb.velocity.y > 0f && (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.W)))
-        {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.4f);
-        }*/
-
         //reduced gravity at top of jump (apex float)
         if (!IsGrounded() && Mathf.Abs(rb.velocity.y)<= 0.5f)
         {
@@ -174,12 +168,12 @@ public class PlayerMovement : MonoBehaviour
     public void UpdateStats()
     {
         if (pStress.playerStress >= 90)
-            jumpForce = maxJumpForce / 2;
+            jumpForce = maxJumpForce * .75f;
         else
             jumpForce = maxJumpForce;
 
-        if (pStress.playerStress >= 70)
-            moveSpeed = maxMoveSpeed - (pStress.playerStress / 15);
+        if (pStress.playerStress >= 40)
+            moveSpeed = maxMoveSpeed * ((100-pStress.playerStress) / 100);
         else
             moveSpeed = maxMoveSpeed;
     }
