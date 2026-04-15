@@ -8,6 +8,7 @@ public class PlayerAnim : MonoBehaviour
     private Animator anim;
     private PlayerMovement pm;
     private Rigidbody2D rb;
+    //private float runTime;
 
     void Start()
     {
@@ -19,7 +20,8 @@ public class PlayerAnim : MonoBehaviour
         anim.SetBool("isRunning", false);
         anim.SetFloat("runSpeed", pm.moveSpeed/pm.maxMoveSpeed);    //% speed of player movement
         anim.SetFloat("animSpeed", 1);      //speed animation plays at
-        anim.SetFloat("fallSpeed", rb.velocity.y);
+        anim.SetFloat("fallTime", 0);
+        //runTime = 0f;
     }
 
     private void Update()
@@ -31,6 +33,11 @@ public class PlayerAnim : MonoBehaviour
             anim.SetBool("facingRight", false);
 
         //idle -> running
+        //print(Mathf.Abs(rb.velocity.x));
+        //if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)) { runTime += Time.deltaTime; }
+        //if (Mathf.Abs(rb.velocity.x) > 0f) { runTime += Time.deltaTime; }
+        //else { runTime = 0f; }
+        //if (runTime > 0)
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
             anim.SetBool("isRunning", true);
         else
@@ -51,11 +58,14 @@ public class PlayerAnim : MonoBehaviour
         }
 
         //falling
-        anim.SetFloat("fallSpeed", rb.velocity.y);
-        if (anim.GetFloat("fallSpeed") < -1f)
+        if (rb.velocity.y < -0.2f)
             anim.SetBool("isFalling", true);
         else
             anim.SetBool("isFalling", false);
+        if (anim.GetBool("isFalling"))
+            anim.SetFloat("fallTime", anim.GetFloat("fallTime") + Time.deltaTime);
+        else
+            anim.SetFloat("fallTime", 0);
     }
 
     private void LateUpdate()

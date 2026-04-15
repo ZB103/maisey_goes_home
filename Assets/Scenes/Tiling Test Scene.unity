@@ -190,6 +190,26 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 5219197737500340975, guid: a8d992b9f5f044f4ab68da274ab5a8c3, type: 3}
+      propertyPath: m_Size.x
+      value: 0.28008175
+      objectReference: {fileID: 0}
+    - target: {fileID: 5219197737500340975, guid: a8d992b9f5f044f4ab68da274ab5a8c3, type: 3}
+      propertyPath: m_Size.y
+      value: 0.865097
+      objectReference: {fileID: 0}
+    - target: {fileID: 5219197737500340975, guid: a8d992b9f5f044f4ab68da274ab5a8c3, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.0026402473
+      objectReference: {fileID: 0}
+    - target: {fileID: 5219197737500340975, guid: a8d992b9f5f044f4ab68da274ab5a8c3, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.27464268
+      objectReference: {fileID: 0}
+    - target: {fileID: 5219197737500340975, guid: a8d992b9f5f044f4ab68da274ab5a8c3, type: 3}
+      propertyPath: m_EdgeRadius
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 5663107205127091001, guid: a8d992b9f5f044f4ab68da274ab5a8c3, type: 3}
       propertyPath: jumpableGround.m_Bits
       value: 64

@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
         moveSpeed = maxMoveSpeed;
         acc = 2f;
         dec = 2.5f;
-        maxJumpForce = 15;
+        maxJumpForce = 16;
         jumpForce = maxJumpForce;
         Physics2D.gravity = new Vector2(0, -70f);
         movementOn = true;
@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
             if (IsGrounded()) { coyoteTimer = maxCoyoteTime; }
             else { coyoteTimer -= Time.deltaTime; }
 
-            //start jump buffer countdown
+            //jump buffer countdown
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
             { jumpBufferTimer = maxJumpBufferTime; }
             else { jumpBufferTimer -= Time.deltaTime; }
