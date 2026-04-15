@@ -19,6 +19,7 @@ public class PlayerAnim : MonoBehaviour
         anim.SetBool("isRunning", false);
         anim.SetFloat("runSpeed", pm.moveSpeed/pm.maxMoveSpeed);    //% speed of player movement
         anim.SetFloat("animSpeed", 1);      //speed animation plays at
+        anim.SetFloat("fallSpeed", rb.velocity.y);
     }
 
     private void Update()
@@ -50,7 +51,8 @@ public class PlayerAnim : MonoBehaviour
         }
 
         //falling
-        if (rb.velocity.y < -.2f)
+        anim.SetFloat("fallSpeed", rb.velocity.y);
+        if (anim.GetFloat("fallSpeed") < -1f)
             anim.SetBool("isFalling", true);
         else
             anim.SetBool("isFalling", false);
