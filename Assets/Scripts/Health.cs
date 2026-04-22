@@ -77,11 +77,12 @@ public class Health : MonoBehaviour
             //check for strike condition
             if (playerHealth <= 0 || transform.position.y < -100)
             {
-                strikesLeft--;
+                transform.position = new Vector2(-7f,.5f);
+               /* strikesLeft--;
                 if (strikesLeft <= 0)
                     StartCoroutine(resetGame.FadeToBlack("loss"));
                 else
-                    StartCoroutine(resetGame.FadeToBlack());
+                    StartCoroutine(resetGame.FadeToBlack());*/
             }
 
             yield return new WaitForSeconds(1);
