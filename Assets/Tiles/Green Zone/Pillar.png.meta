@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f9022007235cbcd4b983eb713984e34e
+guid: 3d8aea8d248b30f4c9736015bc9ef283
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,91 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Grass_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1536
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aa839760de124f64aae3235387464b53
-      internalID: 1055285741
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Grass_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1280
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bdc329407b3b64448826790d86ad4bf8
-      internalID: 890561768
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Grass_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1024
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1e04c415ad7cae44d984be3a037e0977
-      internalID: 935506158
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Grass_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 768
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b7bd226830aad2048b98968af9c9a0ad
-      internalID: 1876154171
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Grass_4
+      name: Pillar_0
       rect:
         serializedVersion: 2
         x: 0
@@ -208,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b95b056f0814f6d46bab39d7782f9600
-      internalID: -1715228378
+      spriteID: 7b8b0f756c6409a4eb9a4143b0d62ab0
+      internalID: -618099936
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Grass_5
+      name: Pillar_1
       rect:
         serializedVersion: 2
         x: 0
@@ -229,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8d738c0d2872b4b4b846c4e027e5852d
-      internalID: -1151883369
+      spriteID: d9f267fc0b9520f40bed6a18e66a007b
+      internalID: -1008960081
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Grass_6
+      name: Pillar_2
       rect:
         serializedVersion: 2
         x: 0
@@ -250,8 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 834652c053374f64c8e9eb023a6e865b
-      internalID: 976572258
+      spriteID: 34a57aaacb532a845833a2ca9a21a161
+      internalID: -413199749
       vertices: []
       indices: 
       edges: []
@@ -267,13 +183,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Grass_0: 1055285741
-      Grass_1: 890561768
-      Grass_2: 935506158
-      Grass_3: 1876154171
-      Grass_4: -1715228378
-      Grass_5: -1151883369
-      Grass_6: 976572258
+      Pillar_0: -618099936
+      Pillar_1: -1008960081
+      Pillar_2: -413199749
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

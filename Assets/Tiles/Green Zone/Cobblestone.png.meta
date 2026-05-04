@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f9022007235cbcd4b983eb713984e34e
+guid: 5f08882f43a238542b1261a6537f787c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,28 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Grass_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1536
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aa839760de124f64aae3235387464b53
-      internalID: 1055285741
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Grass_1
+      name: Cobblestone_0
       rect:
         serializedVersion: 2
         x: 0
@@ -145,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bdc329407b3b64448826790d86ad4bf8
-      internalID: 890561768
+      spriteID: 5e6c406b819f980408920b5ed8c6786b
+      internalID: 1540576428
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Grass_2
+      name: Cobblestone_1
       rect:
         serializedVersion: 2
         x: 0
@@ -166,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1e04c415ad7cae44d984be3a037e0977
-      internalID: 935506158
+      spriteID: a8a6256e31e872a4ead54bd739f6b9d0
+      internalID: 1190942276
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Grass_3
+      name: Cobblestone_2
       rect:
         serializedVersion: 2
         x: 0
@@ -187,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7bd226830aad2048b98968af9c9a0ad
-      internalID: 1876154171
+      spriteID: 19cbad1b395129648a7e45165e3e24d1
+      internalID: 733650979
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Grass_4
+      name: Cobblestone_3
       rect:
         serializedVersion: 2
         x: 0
@@ -208,14 +187,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b95b056f0814f6d46bab39d7782f9600
-      internalID: -1715228378
+      spriteID: c21745f6b5d1ed94482c8b1f10985c27
+      internalID: -287498318
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Grass_5
+      name: Cobblestone_4
       rect:
         serializedVersion: 2
         x: 0
@@ -229,14 +208,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8d738c0d2872b4b4b846c4e027e5852d
-      internalID: -1151883369
+      spriteID: 611efccd0fb93b24da0d281d8ba189bf
+      internalID: 1012242503
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Grass_6
+      name: Cobblestone_5
       rect:
         serializedVersion: 2
         x: 0
@@ -250,8 +229,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 834652c053374f64c8e9eb023a6e865b
-      internalID: 976572258
+      spriteID: 465dfeff4b2d9ad45b7ad023af84c50c
+      internalID: 843810027
       vertices: []
       indices: 
       edges: []
@@ -267,13 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Grass_0: 1055285741
-      Grass_1: 890561768
-      Grass_2: 935506158
-      Grass_3: 1876154171
-      Grass_4: -1715228378
-      Grass_5: -1151883369
-      Grass_6: 976572258
+      Cobblestone_0: 1540576428
+      Cobblestone_1: 1190942276
+      Cobblestone_2: 733650979
+      Cobblestone_3: -287498318
+      Cobblestone_4: 1012242503
+      Cobblestone_5: 843810027
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
