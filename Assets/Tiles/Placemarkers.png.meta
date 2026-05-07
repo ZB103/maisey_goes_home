@@ -114,7 +114,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 512
+        y: 1024
         width: 256
         height: 256
       alignment: 0
@@ -135,7 +135,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 256
+        y: 768
         width: 256
         height: 256
       alignment: 0
@@ -156,7 +156,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 512
         width: 256
         height: 256
       alignment: 0
@@ -168,6 +168,48 @@ TextureImporter:
       bones: []
       spriteID: a64ef80633d16a44798177577429be99
       internalID: -1909092411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Placemarkers_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c01a45ee021922045a9edd187562efca
+      internalID: -665605694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Placemarkers_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f5ca53a466500f40bdf4cf296d7654b
+      internalID: 261398821
       vertices: []
       indices: 
       edges: []
@@ -186,6 +228,8 @@ TextureImporter:
       Placemarkers_0: -726087948
       Placemarkers_1: 61213577
       Placemarkers_2: -1909092411
+      Placemarkers_3: -665605694
+      Placemarkers_4: 261398821
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

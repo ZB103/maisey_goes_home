@@ -134,8 +134,8 @@ TextureImporter:
       name: Pillar_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 256
+        x: 256
+        y: 512
         width: 256
         height: 256
       alignment: 0
@@ -156,7 +156,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 256
         width: 256
         height: 256
       alignment: 0
@@ -168,6 +168,69 @@ TextureImporter:
       bones: []
       spriteID: 34a57aaacb532a845833a2ca9a21a161
       internalID: -413199749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pillar_3
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 357008d7d30964d46914030b284c967c
+      internalID: -502285050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pillar_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97978e42d2749c8448faad5545e5b9cd
+      internalID: -1422885080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pillar_5
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 929ae2af4ee42834eaac039f9c20441d
+      internalID: 1506455614
       vertices: []
       indices: 
       edges: []
@@ -186,6 +249,9 @@ TextureImporter:
       Pillar_0: -618099936
       Pillar_1: -1008960081
       Pillar_2: -413199749
+      Pillar_3: -502285050
+      Pillar_4: -1422885080
+      Pillar_5: 1506455614
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
