@@ -18,11 +18,6 @@ public class Biome : MonoBehaviour
 
     public string getBiomeString()
     {
-        /*if (biome == BiomeType.BLUE) { return "BLUE"; }
-        else if (biome == BiomeType.GREEN) { return "GREEN"; }
-        else if (biome == BiomeType.WHITE) { return "WHITE"; }
-        else if (biome == BiomeType.RED) { return "RED"; }
-        else { return "BIOME ERR!!"; }*/
         return biome.ToString();
     }
 }

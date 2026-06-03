@@ -6,7 +6,6 @@ using UnityEngine.XR;
 
 public enum BlueAmbientSounds
 {
-    BLUENOISE,
     CICADAS,
     THUNDER,
     DRIP,
@@ -19,7 +18,6 @@ public enum BlueAmbientSounds
 
 public enum GreenAmbientSounds
 {
-    GREENNOISE,
     CARDINAL,
 }
 
@@ -30,7 +28,8 @@ public class AmbientSoundManager : MonoBehaviour
     [SerializeField] private SoundList[] greenSoundList; //array of arrays of sounds
     private static AmbientSoundManager instance;
     private AudioSource audioSource;
-    BiomeType b;
+    public BiomeType biome;
+    public BiomeType lastBiome;
 
     private void Awake()
     {
@@ -51,17 +50,6 @@ public class AmbientSoundManager : MonoBehaviour
 
         //play sound clip
         //instance.audioSource.PlayOneShot(randClip, vol);
-    }
-
-    //determine biome color
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        b = collision.gameObject.GetComponent<Biome>().getBiomeType();
-        //if different biome than before
-            //if playing
-                //fade out of current noise
-            //fade into current noise
-
     }
 
     //give elements in inspector names
