@@ -12,8 +12,8 @@ public class AmbientNoiseManager : MonoBehaviour
     private static AmbientSoundManager asm;
     private AudioSource[] audioSources;
     private static float maxVol = .15f;
-    BiomeType biome;
-    BiomeType lastBiome;
+    public BiomeType biome;
+    private BiomeType lastBiome;
 
     private void Awake()
     {
@@ -24,7 +24,7 @@ public class AmbientNoiseManager : MonoBehaviour
     {
         audioSources = GetComponents<AudioSource>();
         asm = GameObject.Find("AmbientSoundManager").GetComponent<AmbientSoundManager>();
-        lastBiome = BiomeType.RED;  //fix later
+        lastBiome = BiomeType.NULL;
         //blue green white red
     }
 
@@ -33,19 +33,20 @@ public class AmbientNoiseManager : MonoBehaviour
     {
         //determine current biome
         biome = collision.gameObject.GetComponent<Biome>().getBiomeType();
-        asm.biome = biome;
 
         //if different biome than before
         if (biome != lastBiome)
         {
+            if (lastBiome == BiomeType.NULL) { lastBiome = biome; } //avoid index out of bounds err
             //fade out of current noise
             StartCoroutine(FadeAudio(audioSources[(int)lastBiome], maxVol, 0f, .25f));
             //fade into current noise
             StartCoroutine(FadeAudio(audioSources[(int)biome], 0f, maxVol, .25f));
+
+            asm.soundIntervalTracker.Clear(); //end queued sfx in prev biome
         }
         //update last biome to current
         lastBiome = biome;
-        asm.lastBiome = lastBiome;
     }
 
     //fade out/in over given period of time

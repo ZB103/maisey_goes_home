@@ -7,7 +7,8 @@ public enum BiomeType
     BLUE,
     GREEN,
     WHITE,
-    RED
+    RED,
+    NULL=-1,
 }
 
 public class Biome : MonoBehaviour
