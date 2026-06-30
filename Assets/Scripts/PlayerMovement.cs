@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private float descentMultiplier;  //amount of velocity adjustment when falling
     private bool right;
     private bool left;
-    private bool jump;
+    private bool jumpQueued;
     [SerializeField] private LayerMask jumpableGround;  //layer of ground able to be jumped from
 
     // Start is called before the first frame update
@@ -44,12 +44,12 @@ public class PlayerMovement : MonoBehaviour
         Physics2D.gravity = new Vector2(0, -70f);
         movementOn = true;
         maxCoyoteTime = 0.15f;
-        maxJumpBufferTime = 0.5f;
+        maxJumpBufferTime = 0.4f;
         jumpStart = false;
         descentMultiplier = 0.1f;
         right = false;
         left = false;
-        jump = false;
+        jumpQueued = false;
     }
 
     private void Update()
@@ -68,14 +68,10 @@ public class PlayerMovement : MonoBehaviour
             if (IsGrounded()) { coyoteTimer = maxCoyoteTime; }
             else { coyoteTimer -= Time.deltaTime; }
 
-            //jump buffer countdown
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
-            { jumpBufferTimer = maxJumpBufferTime; }
-            else { jumpBufferTimer -= Time.deltaTime; }
-            
             //jump
-            if (jumpBufferTimer > 0f && coyoteTimer > 0f ) { jumpStart = true; jump = true; }
-            if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.W)) { coyoteTimer = 0f; }
+            if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)) && jumpBufferTimer <= 0f)
+            { jumpBufferTimer = maxJumpBufferTime; jumpQueued = true; jumpStart = true; }
+            jumpBufferTimer -= Time.deltaTime;
         }
     }
 
@@ -128,11 +124,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //execute jump if within jump buffer and coyote allowance
-        if (jump)
+        if (jumpQueued)
         {
-            jump = false;
+            jumpQueued = false;
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            jumpBufferTimer = 0f;
         }
 
         //reduced gravity at top of jump (apex float)
