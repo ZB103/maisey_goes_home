@@ -18,7 +18,6 @@ public class PlayerMovement : MonoBehaviour
     private float maxJumpForce; //vertical movement max force
     private float jumpForce; //vertical movement
     public bool movementOn; //player can move?
-    private float maxCoyoteTime;    //jump allowed for extra time after leaving platform
     public float coyoteTimer;   //timer used to determine whether jump is allowed at that moment
     private float maxJumpBufferTime;    //jump is allowed before hitting the ground
     public float jumpBufferTimer;      //timer used to determine whether jump allowed at that moment
@@ -27,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private bool right;
     private bool left;
     private bool jumpQueued;
-    [SerializeField] private LayerMask jumpableGround;  //layer of ground able to be jumped from
+    [SerializeField] public LayerMask jumpableGround;  //layer of ground able to be jumped from
 
     // Start is called before the first frame update
     void Awake()
@@ -43,7 +42,6 @@ public class PlayerMovement : MonoBehaviour
         jumpForce = maxJumpForce;
         Physics2D.gravity = new Vector2(0, -70f);
         movementOn = true;
-        maxCoyoteTime = 0.15f;
         maxJumpBufferTime = 0.4f;
         jumpStart = false;
         descentMultiplier = 0.1f;
@@ -64,12 +62,8 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKey(KeyCode.A) && rb.velocity.x > -moveSpeed) { left = true; }
             else { left = false; }
 
-            //coyote buffer countdown
-            if (IsGrounded()) { coyoteTimer = maxCoyoteTime; }
-            else { coyoteTimer -= Time.deltaTime; }
-
-            //jump
-            if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)) && jumpBufferTimer <= 0f)
+            //jump buffer countdown
+            if (Input.GetKeyDown(KeyCode.W) && jumpBufferTimer <= 0f)
             { jumpBufferTimer = maxJumpBufferTime; jumpQueued = true; jumpStart = true; }
             jumpBufferTimer -= Time.deltaTime;
         }
@@ -123,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        //execute jump if within jump buffer and coyote allowance
+        //execute jump if within jump buffer
         if (jumpQueued)
         {
             jumpQueued = false;
@@ -131,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //reduced gravity at top of jump (apex float)
-        if (!IsGrounded() && Mathf.Abs(rb.velocity.y)<= 0.5f)
+        if (!IsGrounded() && Mathf.Abs(rb.velocity.y) <= 0.5f)
         {
             rb.gravityScale = 0.3f;
         }
@@ -151,12 +145,6 @@ public class PlayerMovement : MonoBehaviour
     public bool IsGrounded()
     {
         return Physics2D.BoxCast(pCollider.bounds.center, pCollider.bounds.size, 0f, Vector2.down, 0.5f, jumpableGround);
-    }
-
-    //determines whether the player is just above the ground, for purposes of queueing a jump
-    public bool IsAlmostGrounded()
-    {
-        return Physics2D.BoxCast(pCollider.bounds.center, pCollider.bounds.size, 0f, Vector2.down, 0.85f, jumpableGround);
     }
 
     //change move/jump stats based on stress levels
